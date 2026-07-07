@@ -80,7 +80,7 @@
       font-size: 0.75rem;
       font-weight: 600;
       opacity: 0.75;
-      margin-left: 0.3rem;
+      margin-left: 1rem;
       white-space: nowrap;
     }
     .nav-weather-icon { font-size: 0.8rem; }
@@ -322,7 +322,6 @@
       height: 56px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       transition: transform 0.3s ease;
     }
     .nav-logo {
@@ -331,6 +330,7 @@
       font-size: 1.1rem;
       color: #c1440e;
       white-space: nowrap;
+      margin-right: auto;
     }
     .nav-links {
       display: flex;
@@ -1252,10 +1252,10 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Modo oscuro">
         <i class="fa-regular fa-moon"></i>
       </button>
-      <div class="nav-weather" id="navWeather">
-        <span class="nav-weather-icon"><i class="fa-regular fa-sun"></i></span>
-        <span class="nav-weather-temp">--°</span>
-      </div>
+    </div>
+    <div class="nav-weather" id="navWeather">
+      <span class="nav-weather-icon"><i class="fa-regular fa-sun"></i></span>
+      <span class="nav-weather-temp">--°</span>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
