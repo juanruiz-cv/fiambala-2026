@@ -1087,9 +1087,18 @@
       margin-bottom: 0.3rem;
     }
     .weather-card .weather-icon {
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin: 0.2rem 0;
+      line-height: 1;
     }
+    .weather-card .weather-icon .wi-sun { color: #f0a030; filter: drop-shadow(0 0 6px rgba(240,160,48,0.3)); }
+    .weather-card .weather-icon .wi-cloud-sun { color: #d4a050; }
+    .weather-card .weather-icon .wi-cloud { color: #8a9aa8; }
+    .weather-card .weather-icon .wi-fog { color: #a0b0be; }
+    .weather-card .weather-icon .wi-rain { color: #5a8ab5; }
+    .weather-card .weather-icon .wi-rain-heavy { color: #3a6a95; }
+    .weather-card .weather-icon .wi-snow { color: #8ab5d5; }
+    .weather-card .weather-icon .wi-storm { color: #6a4a8a; }
     .weather-card .weather-temp {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem;
@@ -1704,16 +1713,16 @@
       const dates = ['2026-07-09', '2026-07-10', '2026-07-11', '2026-07-12'];
 
       const wmoIcons = {
-        0: 'fa-solid fa-sun',
-        1: 'fa-solid fa-sun',
-        2: 'fa-regular fa-sun',
-        3: 'fa-solid fa-cloud',
-        45: 'fa-solid fa-smog', 48: 'fa-solid fa-smog',
-        51: 'fa-solid fa-cloud-rain', 53: 'fa-solid fa-cloud-rain', 55: 'fa-solid fa-cloud-rain',
-        61: 'fa-solid fa-cloud-showers-heavy', 63: 'fa-solid fa-cloud-showers-heavy', 65: 'fa-solid fa-cloud-showers-heavy',
-        71: 'fa-regular fa-snowflake', 73: 'fa-regular fa-snowflake', 75: 'fa-regular fa-snowflake',
-        80: 'fa-solid fa-cloud-showers-heavy', 81: 'fa-solid fa-cloud-showers-heavy', 82: 'fa-solid fa-cloud-showers-heavy',
-        95: 'fa-solid fa-cloud-bolt', 96: 'fa-solid fa-cloud-bolt', 99: 'fa-solid fa-cloud-bolt',
+        0: 'fa-solid fa-sun wi-sun',
+        1: 'fa-solid fa-sun wi-sun',
+        2: 'fa-solid fa-cloud-sun wi-cloud-sun',
+        3: 'fa-solid fa-cloud wi-cloud',
+        45: 'fa-solid fa-smog wi-fog', 48: 'fa-solid fa-smog wi-fog',
+        51: 'fa-solid fa-cloud-rain wi-rain', 53: 'fa-solid fa-cloud-rain wi-rain', 55: 'fa-solid fa-cloud-rain wi-rain',
+        61: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy', 63: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy', 65: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy',
+        71: 'fa-regular fa-snowflake wi-snow', 73: 'fa-regular fa-snowflake wi-snow', 75: 'fa-regular fa-snowflake wi-snow',
+        80: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy', 81: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy', 82: 'fa-solid fa-cloud-showers-heavy wi-rain-heavy',
+        95: 'fa-solid fa-cloud-bolt wi-storm', 96: 'fa-solid fa-cloud-bolt wi-storm', 99: 'fa-solid fa-cloud-bolt wi-storm',
       };
       const wmoLabel = {
         0: 'Despejado', 1: 'Mayormente despejado', 2: 'Parcialmente nublado', 3: 'Nublado',
