@@ -640,6 +640,7 @@
     .check-card h3 {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 0.6rem;
       font-size: 1rem;
       font-family: 'Inter', sans-serif;
@@ -647,6 +648,12 @@
       margin-bottom: 0.8rem;
     }
     .check-card h3 i { color: #c1440e; }
+    .check-card .check-count {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #b8a89e;
+      white-space: nowrap;
+    }
 
     /* Progress bar */
     .check-progress {
@@ -1359,6 +1366,7 @@
     [data-theme="dark"] .theme-float { background: var(--card-bg); color: var(--text); border: 1px solid var(--card-border); }
     [data-theme="dark"] .people-card .people-role { color: var(--muted); }
     [data-theme="dark"] .check-card h3 { color: var(--text); }
+    [data-theme="dark"] .check-card .check-count { color: var(--muted-light); }
     [data-theme="dark"] .check-card h4 { color: var(--text); }
     [data-theme="dark"] .drinks-grid h4 { color: var(--text); }
     [data-theme="dark"] .drinks-grid li { color: var(--text); }
@@ -1704,7 +1712,7 @@
     <div class="checklist-grid">
 
       <div class="check-card reveal reveal-d1">
-        <h3><i class="fa-solid fa-shirt"></i> Vestimenta</h3>
+        <h3><i class="fa-solid fa-shirt"></i> Vestimenta<span class="check-count">0/6</span></h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
           <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Ropa en capas</span></li>
@@ -1717,7 +1725,7 @@
       </div>
 
       <div class="check-card reveal reveal-d2">
-        <h3><i class="fa-solid fa-backpack"></i> Accesorios</h3>
+        <h3><i class="fa-solid fa-suitcase"></i> Accesorios<span class="check-count">0/8</span></h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
           <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Protector solar</span></li>
@@ -1732,7 +1740,7 @@
       </div>
 
       <div class="check-card reveal reveal-d3">
-        <h3><i class="fa-solid fa-utensils"></i> Comida</h3>
+        <h3><i class="fa-solid fa-utensils"></i> Comida<span class="check-count">0/5</span></h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
           <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Infusiones (mate, té, café)</span></li>
@@ -1744,7 +1752,7 @@
       </div>
 
       <div class="check-card reveal reveal-d4">
-        <h3><i class="fa-solid fa-wine-glass"></i> Bebidas</h3>
+        <h3><i class="fa-solid fa-wine-glass"></i> Bebidas<span class="check-count">0/7</span></h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <div class="drinks-grid">
           <div>
@@ -2094,6 +2102,11 @@
       const bar = card.querySelector('.check-progress-bar');
       if (bar && items.length) {
         bar.style.width = Math.round((checked.length / items.length) * 100) + '%';
+      }
+      // Update counter
+      const count = card.querySelector('.check-count');
+      if (count && items.length) {
+        count.textContent = checked.length + '/' + items.length;
       }
     }
 
