@@ -88,6 +88,11 @@
     .nav-weather .wi-cloud-sun { color: #d4a050; }
     .nav-weather .wi-cloud { color: #8a9aa8; }
     .nav-weather .wi-rain { color: #5a8ab5; }
+    .nav-weather-label {
+      font-size: 0.6rem;
+      font-weight: 400;
+      opacity: 0.5;
+    }
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -1453,9 +1458,10 @@
       <a href="#fotos">Fotos</a>
       <a href="#docs">Documentación</a>
     </div>
-    <div class="nav-weather" id="navWeather">
+    <div class="nav-weather" id="navWeather" title="Fiambalá — temperatura actual">
       <span class="nav-weather-icon"><i class="fa-regular fa-sun"></i></span>
       <span class="nav-weather-temp">--°</span>
+      <span class="nav-weather-label">Fiambalá</span>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
