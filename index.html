@@ -83,7 +83,8 @@
     }
 
     /* ===== LAYOUT ===== */
-    section { padding: 4rem 1.2rem; max-width: 1200px; margin: 0 auto; }
+    section { padding: 4rem 1.2rem; max-width: 1200px; margin: 0 auto; scroll-margin-top: 70px; }
+    #itinerario, #autos, #checklist, #docs { scroll-margin-top: 70px; }
     @media (min-width: 768px) { section { padding: 6rem 2rem; } }
     @media (max-width: 400px) { section { padding: 2.5rem 0.9rem; } }
 
@@ -936,6 +937,9 @@
 
   <!-- ===== ROUTE STATS ===== -->
   <section class="reveal" style="padding-top:2rem;padding-bottom:0;">
+    <h3 style="text-align:center;font-size:clamp(1rem,3vw,1.3rem);color:#7d5a4a;margin-bottom:1.5rem;font-weight:400;letter-spacing:0.02em;">
+      El viaje en números
+    </h3>
     <div class="route-box">
       <div class="stat">
         <div class="stat-value">612 km</div>
