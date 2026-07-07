@@ -1321,6 +1321,13 @@
       font-weight: 400;
       color: #7d5a4a;
     }
+    .weather-card.weather-now {
+      border: 1px solid rgba(193,68,14,0.25);
+      background: linear-gradient(135deg, #fef9f4, #fff);
+    }
+    .weather-card.weather-now .day-name { color: #c1440e; }
+    [data-theme="dark"] .weather-card.weather-now { background: rgba(193,68,14,0.08); border-color: rgba(193,68,14,0.2); }
+    [data-theme="dark"] .weather-card.weather-now .day-name { color: #e07040; }
     .weather-card .weather-label {
       font-size: 0.65rem;
       color: #b8a89e;
@@ -2175,15 +2182,35 @@
         `;
       }
 
-      // Render weather from API data (called by JSONP callback or directly)
+      function renderNowCard(temp, wcode) {
+        const icon = wmoIcons[wcode] || 'fa-regular fa-sun';
+        const label = wmoLabel[wcode] || '—';
+        return `
+          <div class="weather-card weather-now">
+            <div class="day-name">Ahora</div>
+            <div class="day-date">en Fiambalá</div>
+            <div class="weather-icon"><i class="${icon}"></i></div>
+            <div class="weather-temp">${Math.round(temp)}°</div>
+            <div class="weather-label">${label}</div>
+          </div>
+        `;
+      }
+
+      // Render weather from API data
       function renderWeather(data) {
         if (!data || !data.daily) {
           renderFallback();
           return;
         }
-        grid.innerHTML = dates.map((d, i) =>
+        let html = '';
+        // Current weather (now) if available
+        if (data.current_weather) {
+          html += renderNowCard(data.current_weather.temperature, data.current_weather.weathercode);
+        }
+        html += dates.map((d, i) =>
           renderCard(d, data.daily.temperature_2m_max[i], data.daily.temperature_2m_min[i], data.daily.weathercode[i])
         ).join('');
+        grid.innerHTML = html;
       }
 
       function renderFallback() {
@@ -2199,7 +2226,7 @@
       }
 
       // Try API via fetch (Open-Meteo supports CORS, no JSONP needed)
-      fetch('https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&start_date=2026-07-09&end_date=2026-07-12')
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&start_date=2026-07-09&end_date=2026-07-12')
         .then(r => r.json())
         .then(data => {
           if (data && data.daily) {
