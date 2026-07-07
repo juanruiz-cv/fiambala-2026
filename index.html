@@ -73,6 +73,21 @@
       align-items: center;
     }
     .theme-toggle:hover { opacity: 1; }
+    .nav-weather {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      opacity: 0.75;
+      margin-left: 0.3rem;
+      white-space: nowrap;
+    }
+    .nav-weather-icon { font-size: 0.8rem; }
+    .nav-weather .wi-sun { color: #f0a030; }
+    .nav-weather .wi-cloud-sun { color: #d4a050; }
+    .nav-weather .wi-cloud { color: #8a9aa8; }
+    .nav-weather .wi-rain { color: #5a8ab5; }
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -1158,6 +1173,7 @@
     /* ===== DARK MODE OVERRIDES ===== */
     [data-theme="dark"] .nav-bar { border-bottom-color: rgba(255,255,255,0.06); }
     [data-theme="dark"] .nav-links a { color: #e8ddd5; }
+    [data-theme="dark"] .nav-weather { color: #e8ddd5; }
     [data-theme="dark"] .mobile-menu { background: #1a1210; border-left-color: rgba(255,255,255,0.06); }
     [data-theme="dark"] .menu-overlay { background: rgba(0,0,0,0.6); }
     [data-theme="dark"] .route-box,
@@ -1236,6 +1252,10 @@
       <button class="theme-toggle" id="themeToggle" aria-label="Modo oscuro">
         <i class="fa-regular fa-moon"></i>
       </button>
+      <div class="nav-weather" id="navWeather">
+        <span class="nav-weather-icon"><i class="fa-regular fa-sun"></i></span>
+        <span class="nav-weather-temp">--°</span>
+      </div>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -1718,6 +1738,38 @@
           localStorage.setItem('fiambala-theme', 'dark');
         }
       });
+    })();
+
+    // ===== NAV WEATHER =====
+    (function() {
+      const el = document.getElementById('navWeather');
+      if (!el) return;
+      const iconSpan = el.querySelector('.nav-weather-icon i');
+      const tempSpan = el.querySelector('.nav-weather-temp');
+      if (!iconSpan || !tempSpan) return;
+
+      const wmoIcons = {
+        0: 'fa-solid fa-sun wi-sun', 1: 'fa-solid fa-sun wi-sun',
+        2: 'fa-solid fa-cloud-sun wi-cloud-sun', 3: 'fa-solid fa-cloud wi-cloud',
+        45: 'fa-solid fa-smog wi-cloud', 48: 'fa-solid fa-smog wi-cloud',
+        51: 'fa-solid fa-cloud-rain wi-rain', 53: 'fa-solid fa-cloud-rain wi-rain', 55: 'fa-solid fa-cloud-rain wi-rain',
+        61: 'fa-solid fa-cloud-showers-heavy wi-rain', 63: 'fa-solid fa-cloud-showers-heavy wi-rain', 65: 'fa-solid fa-cloud-showers-heavy wi-rain',
+        71: 'fa-regular fa-snowflake', 73: 'fa-regular fa-snowflake', 75: 'fa-regular fa-snowflake',
+        80: 'fa-solid fa-cloud-showers-heavy wi-rain', 81: 'fa-solid fa-cloud-showers-heavy wi-rain', 82: 'fa-solid fa-cloud-showers-heavy wi-rain',
+        95: 'fa-solid fa-cloud-bolt', 96: 'fa-solid fa-cloud-bolt', 99: 'fa-solid fa-cloud-bolt',
+      };
+
+      window.navWeatherCallback = function(data) {
+        if (!data || !data.current_weather) return;
+        const w = data.current_weather;
+        tempSpan.textContent = Math.round(w.temperature) + '°';
+        const cls = wmoIcons[w.weathercode] || 'fa-regular fa-sun';
+        iconSpan.className = cls;
+      };
+
+      const s = document.createElement('script');
+      s.src = 'https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&current_weather=true&callback=navWeatherCallback';
+      document.head.appendChild(s);
     })();
 
     // ===== SCROLL REVEAL =====
