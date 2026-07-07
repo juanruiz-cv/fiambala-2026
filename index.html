@@ -1136,7 +1136,7 @@
     <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:0.5rem;font-weight:700;letter-spacing:-0.01em;">
       <i class="fa-regular fa-sun" style="color:#c1440e;"></i>&nbsp; Clima estimado
     </h3>
-    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 26 al 29 de marzo</p>
+    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 9 al 12 de julio</p>
     <div class="weather-grid" id="weatherGrid">
       <div class="weather-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando clima…</div>
     </div>
@@ -1252,7 +1252,7 @@
   <section class="reveal reveal-d3" id="itinerario">
     <i class="fa-regular fa-calendar section-icon"></i>
     <h2>Itinerario</h2>
-    <p class="section-subtitle">Jueves 26 — Domingo 29 de marzo</p>
+    <p class="section-subtitle">Jueves 9 — Domingo 12 de julio</p>
 
     <div class="itinerary-grid">
 
@@ -1654,7 +1654,7 @@
       if (!grid) return;
 
       const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-      const dates = ['2026-03-26', '2026-03-27', '2026-03-28', '2026-03-29'];
+      const dates = ['2026-07-09', '2026-07-10', '2026-07-11', '2026-07-12'];
 
       const wmoIcons = {
         0: 'fa-solid fa-sun',
@@ -1696,7 +1696,7 @@
       }
 
       // Try Open-Meteo archive API, fallback to typical values
-      const url = 'https://archive-api.open-meteo.com/v1/archive?latitude=-27.6&longitude=-67.6&start_date=2026-03-26&end_date=2026-03-29&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto';
+      const url = 'https://archive-api.open-meteo.com/v1/archive?latitude=-27.6&longitude=-67.6&start_date=2026-07-09&end_date=2026-07-12&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto';
 
       fetch(url)
         .then(r => r.json())
@@ -1710,12 +1710,12 @@
           ).join('');
         })
         .catch(() => {
-          // Fallback: valores típicos de Fiambalá en marzo
+          // Fallback: valores típicos de Fiambalá en julio (invierno)
           const fallback = [
-            { max: 30, min: 14, code: 0 },
-            { max: 28, min: 13, code: 1 },
-            { max: 31, min: 15, code: 0 },
-            { max: 27, min: 12, code: 2 },
+            { max: 18, min: 2, code: 0 },
+            { max: 20, min: 3, code: 1 },
+            { max: 17, min: 1, code: 2 },
+            { max: 19, min: 2, code: 0 },
           ];
           grid.innerHTML = dates.map((d, i) =>
             renderCard(d, fallback[i].max, fallback[i].min, fallback[i].code)
@@ -1727,15 +1727,15 @@
     (function() {
       const el = document.getElementById('heroCountdown');
       if (!el) return;
-      // Salida: Jueves 26 de marzo, 06:00 ART (UTC-3)
-      const departure = new Date('2026-03-26T06:00:00-03:00');
+      // Salida: Jueves 9 de julio, 06:00 ART (UTC-3)
+      const departure = new Date('2026-07-09T06:00:00-03:00');
 
       function tick() {
         const now = new Date();
         const diff = departure - now;
 
         if (diff <= 0) {
-          el.innerHTML = '<div class="cd-done"><i class="fa-solid fa-check-circle"></i> Partimos el 26 de marzo 🏔️</div>';
+          el.innerHTML = '<div class="cd-done"><i class="fa-solid fa-check-circle"></i> Partimos el 9 de julio 🏔️</div>';
           return;
         }
 
