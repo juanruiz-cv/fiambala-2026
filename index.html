@@ -32,6 +32,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1025,14 +1027,22 @@
       overflow: hidden;
       box-shadow: 0 4px 24px rgba(44, 24, 16, 0.08);
       border: 1px solid rgba(44, 24, 16, 0.06);
+      height: 420px;
     }
-    .map-wrapper iframe {
-      display: block;
+    .map-wrapper .leaflet-container {
       width: 100%;
-      height: 400px;
-      border: none;
+      height: 100%;
+      border-radius: 18px;
     }
-    @media (max-width: 500px) { .map-wrapper iframe { height: 260px; } }
+    .route-marker-popup .leaflet-popup-content-wrapper {
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+    }
+    .route-marker-popup .leaflet-popup-content {
+      margin: 0.4rem 0.6rem;
+    }
+    @media (max-width: 500px) { .map-wrapper { height: 280px; } }
 
     /* ===== CLIMA ===== */
     .weather-grid {
@@ -1053,6 +1063,15 @@
       box-shadow: 0 4px 20px rgba(44, 24, 16, 0.05);
       border: 1px solid rgba(44, 24, 16, 0.06);
       transition: transform 0.2s;
+      animation: fade-up 0.5s ease-out both;
+    }
+    .weather-card:nth-child(1) { animation-delay: 0.1s; }
+    .weather-card:nth-child(2) { animation-delay: 0.2s; }
+    .weather-card:nth-child(3) { animation-delay: 0.3s; }
+    .weather-card:nth-child(4) { animation-delay: 0.4s; }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .weather-card:hover { transform: translateY(-3px); }
     .weather-card .day-name {
@@ -1544,17 +1563,10 @@
   <section class="reveal" id="mapa">
     <i class="fa-regular fa-map section-icon"></i>
     <h2>Mapa del viaje</h2>
-    <p class="section-subtitle">San Juan → Fiambalá por RN40</p>
-    <div class="map-wrapper">
-      <iframe 
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-68.8,-28.8,-66.0,-26.0&amp;layer=mapnik&amp;marker=-27.6,-67.6" 
-        title="Mapa de Fiambalá y RN40"
-        loading="lazy"
-        referrerpolicy="no-referrer">
-      </iframe>
-    </div>
+    <p class="section-subtitle">San Juan → Fiambalá por RN40 · 612 km</p>
+    <div class="map-wrapper" id="routeMap"></div>
     <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);color:#7d5a4a;">
-      <i class="fa-regular fa-compass"></i>&nbsp; 612 km desde San Juan · <a href="https://www.openstreetmap.org/relation/2991350" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver en OpenStreetMap</a>
+      <i class="fa-regular fa-compass"></i>&nbsp; Salida: YPF Centenario RN40 · <a href="https://www.openstreetmap.org/directions?from=-31.538,-68.536&to=-27.6,-67.6" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver ruta en OpenStreetMap</a>
     </p>
   </section>
 
@@ -1720,7 +1732,7 @@
         const icon = wmoIcons[wcode] || 'fa-regular fa-sun';
         const label = wmoLabel[wcode] || '—';
         return `
-          <div class="weather-card reveal">
+          <div class="weather-card">
             <div class="day-name">${dayName}</div>
             <div class="day-date">${shortDate}</div>
             <div class="weather-icon"><i class="${icon}"></i></div>
@@ -1767,6 +1779,58 @@
       }, 5000);
     })();
 
+    // ===== MAPA CON RUTA =====
+    (function() {
+      const el = document.getElementById('routeMap');
+      if (!el || typeof L === 'undefined') return;
+
+      // Inicializar mapa centrado entre San Juan y Fiambalá
+      const map = L.map(el, {
+        center: [-29.55, -67.85],
+        zoom: 8,
+        scrollWheelZoom: true,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright" target="_blank">OSM</a>',
+        maxZoom: 18,
+      }).addTo(map);
+
+      // Marcadores
+      const sjMarker = L.marker([-31.5375, -68.5364])
+        .addTo(map)
+        .bindPopup('<b>San Juan</b><br/>YPF Centenario · Salida 06:00');
+
+      const fibMarker = L.marker([-27.6, -67.6])
+        .addTo(map)
+        .bindPopup('<b>Fiambalá</b><br/>Catamarca · Destino final');
+
+      // Intentar dibujar ruta desde OSRM
+      const routeUrl = 'https://router.project-osrm.org/route/v1/driving/-68.5364,-31.5375;-67.6,-27.6?geometries=geojson&overview=full&alternatives=false';
+
+      fetch(routeUrl)
+        .then(r => r.json())
+        .then(data => {
+          if (!data.routes || !data.routes[0]) throw new Error('No route');
+          const coords = data.routes[0].geometry.coordinates;
+          const latlngs = coords.map(c => [c[1], c[0]]);
+          const polyline = L.polyline(latlngs, {
+            color: '#c1440e',
+            weight: 5,
+            opacity: 0.9,
+            dashArray: null,
+          }).addTo(map);
+
+          // Ajustar zoom para que entre toda la ruta
+          map.fitBounds(polyline.getBounds().pad(0.12));
+        })
+        .catch(() => {
+          // Si no se puede obtener la ruta, mostrar el área con ambos marcadores
+          const group = L.featureGroup([sjMarker, fibMarker]);
+          map.fitBounds(group.getBounds().pad(0.15));
+        });
+    })();
+
     // ===== COUNTDOWN =====
     (function() {
       const el = document.getElementById('heroCountdown');
@@ -1792,7 +1856,7 @@
           `<div class="cd-item"><span class="cd-num">${days}</span><span class="cd-label">Días</span></div>` +
           `<div class="cd-item"><span class="cd-num">${hours}</span><span class="cd-label">Hs</span></div>` +
           `<div class="cd-item"><span class="cd-num">${mins}</span><span class="cd-label">Min</span></div>` +
-          `<div class="cd-item"><span class="cd-num">${secs}</span><span class="cd-label">Seg</span></div>`;
+          `<div class="cd-item cd-sec"><span class="cd-num">${secs}</span><span class="cd-label">Seg</span></div>`;
       }
 
       tick();
