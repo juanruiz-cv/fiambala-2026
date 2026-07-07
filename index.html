@@ -228,6 +228,18 @@
     .hero-countdown {
       margin-top: 1rem;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .hero-countdown .cd-context {
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      font-weight: 400;
+      opacity: 0.85;
+      letter-spacing: 0.02em;
+    }
+    .hero-countdown .cd-items {
+      display: flex;
       justify-content: center;
       gap: 0.7rem;
       flex-wrap: wrap;
@@ -1499,7 +1511,7 @@
         <span style="opacity:0.4;margin:0 0.2em;">•</span>
         4 días · 3 autos · 12 personas
       </div>
-      <div class="hero-countdown" id="heroCountdown"></div>
+      <div class="hero-countdown" id="heroCountdown"><div class="cd-context" id="cdContext"></div><div class="cd-items" id="cdItems"></div></div>
     </div>
     <div class="hero-scroll">
       <span>Descubrí el viaje</span>
@@ -2258,17 +2270,21 @@
 
     // ===== COUNTDOWN =====
     (function() {
-      const el = document.getElementById('heroCountdown');
-      if (!el) return;
+      const context = document.getElementById('cdContext');
+      const items = document.getElementById('cdItems');
+      if (!context || !items) return;
       // Salida: Jueves 9 de julio, 06:00 ART (UTC-3)
       const departure = new Date('2026-07-09T06:00:00-03:00');
+
+      function pad(n) { return String(n).padStart(2, '0'); }
 
       function tick() {
         const now = new Date();
         const diff = departure - now;
 
         if (diff <= 0) {
-          el.innerHTML = '<div class="cd-done"><i class="fa-solid fa-check-circle"></i> Partimos el 9 de julio 🏔️</div>';
+          context.textContent = '¡Ya estamos viajando! 🏔️';
+          items.innerHTML = '<div class="cd-done"><i class="fa-solid fa-check-circle"></i> Rumbo a Fiambalá</div>';
           return;
         }
 
@@ -2277,11 +2293,18 @@
         const mins = Math.floor((diff % 3600000) / 60000);
         const secs = Math.floor((diff % 60000) / 1000);
 
-        el.innerHTML =
+        // Context text
+        if (days > 0) {
+          context.textContent = days === 1 ? 'Falta 1 día para salir' : `Faltan ${days} días para salir`;
+        } else {
+          context.textContent = '¡Salimos hoy!';
+        }
+
+        items.innerHTML =
           `<div class="cd-item"><span class="cd-num">${days}</span><span class="cd-label">Días</span></div>` +
-          `<div class="cd-item"><span class="cd-num">${hours}</span><span class="cd-label">Hs</span></div>` +
-          `<div class="cd-item"><span class="cd-num">${mins}</span><span class="cd-label">Min</span></div>` +
-          `<div class="cd-item cd-sec"><span class="cd-num">${secs}</span><span class="cd-label">Seg</span></div>`;
+          `<div class="cd-item"><span class="cd-num">${pad(hours)}</span><span class="cd-label">Hs</span></div>` +
+          `<div class="cd-item"><span class="cd-num">${pad(mins)}</span><span class="cd-label">Min</span></div>` +
+          `<div class="cd-item cd-sec"><span class="cd-num">${pad(secs)}</span><span class="cd-label">Seg</span></div>`;
       }
 
       tick();
