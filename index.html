@@ -546,27 +546,36 @@
       transition: background 0.15s, color 0.2s;
       user-select: none;
     }
-    .check-card li:hover { background: rgba(193, 68, 14, 0.04); }
-    .check-card li:active { background: rgba(193, 68, 14, 0.08); }
+    .check-card li:hover { background: rgba(193, 68, 14, 0.06); }
+    .check-card li:active { background: rgba(193, 68, 14, 0.12); }
     .check-card li i {
-      width: 16px;
+      width: 18px;
+      height: 18px;
       font-size: 0.7rem;
       color: #c1440e;
       transition: transform 0.2s;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(193, 68, 14, 0.3);
+      border-radius: 5px;
+      background: transparent;
     }
+    .check-card li i::before {
+      opacity: 0;
+      transition: opacity 0.2s;
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+    }
+    .check-card li:hover i { border-color: #c1440e; }
     .check-card li.checked i {
-      color: #7d5a4a;
-      opacity: 0.4;
+      border-color: #c1440e;
+      background: #c1440e;
+      color: #fff;
     }
-    .check-card li.checked i::before {
-      content: '\f00c'; /* solid check-circle */
-    }
-    .check-card li.checked span {
-      text-decoration: line-through;
-      color: #b8a89e;
-    }
-    .check-card li.checked { color: #b8a89e; }
+    .check-card li.checked i::before { opacity: 1; }
     .check-card .badge {
       display: inline-block;
       background: #c1440e10;
@@ -1247,12 +1256,12 @@
         <h3><i class="fa-solid fa-shirt"></i> Vestimenta</h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Ropa en capas</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Campera</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Ropa térmica</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Gorro / gorro de lana</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Bikini / malla</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Ojotas</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Ropa en capas</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Campera</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Ropa térmica</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Gorro / gorro de lana</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Bikini / malla</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Ojotas</span></li>
         </ul>
       </div>
 
@@ -1260,14 +1269,14 @@
         <h3><i class="fa-solid fa-backpack"></i> Accesorios</h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Protector solar</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Lentes de sol</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Adaptador de corriente</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Mochila chica</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Botella de agua</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Botiquín</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Toalla</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Conservadora / heladerita</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Protector solar</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Lentes de sol</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Adaptador de corriente</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Mochila chica</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Botella de agua</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Botiquín</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Toalla</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Conservadora / heladerita</span></li>
         </ul>
       </div>
 
@@ -1275,11 +1284,11 @@
         <h3><i class="fa-solid fa-utensils"></i> Comida</h3>
         <div class="check-progress"><div class="check-progress-bar"></div></div>
         <ul>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Infusiones (mate, té, café)</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Desayunos</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Almuerzo</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Cena</span></li>
-          <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Snacks para la ruta</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Infusiones (mate, té, café)</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Desayunos</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Almuerzo</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Cena</span></li>
+          <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Snacks para la ruta</span></li>
         </ul>
       </div>
 
@@ -1290,18 +1299,18 @@
           <div>
             <h4><i class="fa-solid fa-wine-bottle"></i> Con alcohol</h4>
             <ul>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Patagonia (cerveza)</span></li>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Vino tinto / blanco</span></li>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Fernet</span></li>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Whisky</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Patagonia (cerveza)</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Vino tinto / blanco</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Fernet</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Whisky</span></li>
             </ul>
           </div>
           <div>
             <h4><i class="fa-solid fa-droplet"></i> Sin alcohol</h4>
             <ul>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>3 bidones de agua <span class="badge">IMPORTANTE</span></span></li>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>3 Coca-Cola</span></li>
-              <li onclick="toggleCheck(this)"><i class="fa-regular fa-circle-check"></i><span>Hielo</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>3 bidones de agua <span class="badge">IMPORTANTE</span></span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>3 Coca-Cola</span></li>
+              <li onclick="toggleCheck(this)"><i class="fa-regular"></i><span>Hielo</span></li>
             </ul>
           </div>
         </div>
@@ -1447,13 +1456,6 @@
     // ===== CHECKLIST INTERACTIVA =====
     window.toggleCheck = function(el) {
       el.classList.toggle('checked');
-      const icon = el.querySelector('i');
-      if (el.classList.contains('checked')) {
-        icon.className = 'fa-solid fa-circle-check';
-      } else {
-        icon.className = 'fa-regular fa-circle-check';
-      }
-      // Update progress bar
       updateProgress(el.closest('.check-card'));
     };
 
