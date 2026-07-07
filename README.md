@@ -4,7 +4,7 @@ Landing page interactiva para el viaje grupal a **Fiambalá, Catamarca** — 4 d
 
 **Jueves 9 a Domingo 12 de julio de 2026**
 
-👉 [fiambala2026.vercel.app](https://fiambala2026.vercel.app/) · [juanruiz-cv.github.io/fiambala-2026](https://juanruiz-cv.github.io/fiambala-2026/)
+👉 [fiambala2026.vercel.app](https://fiambala2026.vercel.app/)
 
 ---
 
@@ -31,7 +31,7 @@ Landing page interactiva para el viaje grupal a **Fiambalá, Catamarca** — 4 d
 
 ## 🚀 Uso
 
-Abrí `index.html` en cualquier navegador o visitá el sitio en [Vercel](https://fiambala2026.vercel.app/) o [GitHub Pages](https://juanruiz-cv.github.io/fiambala-2026/).
+Abrí `index.html` en cualquier navegador o visitá el sitio en [Vercel](https://fiambala2026.vercel.app/).
 
 Para desarrollo local, no necesita servidor — abrí el archivo directo.
 
