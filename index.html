@@ -1696,7 +1696,7 @@
       }
 
       // Try Open-Meteo archive API, fallback to typical values
-      const url = 'https://archive-api.open-meteo.com/v1/archive?latitude=-27.6&longitude=-67.6&start_date=2026-07-09&end_date=2026-07-12&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto';
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&start_date=2026-07-09&end_date=2026-07-12';
 
       fetch(url)
         .then(r => r.json())
