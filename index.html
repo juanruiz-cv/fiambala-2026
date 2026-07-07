@@ -35,13 +35,51 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
+    /* ===== THEME ===== */
+    :root {
+      --bg: #faf6f0;
+      --text: #2c1810;
+      --card-bg: #fff;
+      --card-border: rgba(44,24,16,0.06);
+      --nav-bg: rgba(250,246,240,0.92);
+      --chip-bg: #f5ede5;
+      --warn-bg: #fff3e6;
+      --warn-border: #c1440e;
+      --muted: #7d5a4a;
+      --muted-light: #b8a89e;
+    }
+    [data-theme="dark"] {
+      --bg: #1a1210;
+      --text: #e8ddd5;
+      --card-bg: #2a1e18;
+      --card-border: rgba(255,255,255,0.06);
+      --nav-bg: rgba(26,18,16,0.94);
+      --chip-bg: #2f221c;
+      --warn-bg: #2f221c;
+      --warn-border: #d05a20;
+      --muted: #b8a090;
+      --muted-light: #7a6a5a;
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 1rem;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      padding: 0;
+      display: flex;
+      align-items: center;
+    }
+    .theme-toggle:hover { opacity: 1; }
     /* ===== RESET ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      color: #2c1810;
-      background: #faf6f0;
+      color: var(--text);
+      background: var(--bg);
       line-height: 1.6;
       overflow-x: hidden;
     }
@@ -86,7 +124,7 @@
 
     /* ===== LAYOUT ===== */
     section { padding: 4rem 1.2rem; max-width: 1200px; margin: 0 auto; scroll-margin-top: 70px; }
-    #itinerario, #autos, #checklist, #docs { scroll-margin-top: 70px; }
+    #itinerario, #mapa, #clima, #autos, #checklist, #fotos, #docs { scroll-margin-top: 70px; }
     @media (min-width: 768px) { section { padding: 6rem 2rem; } }
     @media (max-width: 400px) { section { padding: 2.5rem 0.9rem; } }
 
@@ -261,7 +299,7 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(250, 246, 240, 0.95);
+      background: var(--nav-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(44, 24, 16, 0.08);
@@ -1117,6 +1155,55 @@
       padding: 1rem;
     }
 
+    /* ===== DARK MODE OVERRIDES ===== */
+    [data-theme="dark"] .nav-bar { border-bottom-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .nav-links a { color: #e8ddd5; }
+    [data-theme="dark"] .mobile-menu { background: #1a1210; border-left-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .menu-overlay { background: rgba(0,0,0,0.6); }
+    [data-theme="dark"] .route-box,
+    [data-theme="dark"] .day-card,
+    [data-theme="dark"] .weather-card,
+    [data-theme="dark"] .check-card,
+    [data-theme="dark"] .doc-chip,
+    [data-theme="dark"] .people-card,
+    [data-theme="dark"] .photo-card { background: var(--card-bg); border-color: var(--card-border); }
+    [data-theme="dark"] .stat-label,
+    [data-theme="dark"] .day-subtitle,
+    [data-theme="dark"] .section-subtitle { color: var(--muted); }
+    [data-theme="dark"] .stat-divider { background: rgba(255,255,255,0.1); }
+    [data-theme="dark"] .hero-sub { color: rgba(255,255,255,0.7); }
+    [data-theme="dark"] .day-item { color: var(--text); }
+    [data-theme="dark"] .fun-grid { color: var(--text); }
+    [data-theme="dark"] .check-card li { color: var(--text); }
+    [data-theme="dark"] .check-card li:hover { background: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .doc-chip { border-color: rgba(255,255,255,0.08); }
+    [data-theme="dark"] .doc-chip.warn { background: #2f221c; border-color: #d05a20; }
+    [data-theme="dark"] .doc-chip.danger { background: #2f1a1a; border-color: #b04040; }
+    [data-theme="dark"] .docs-grid .doc-chip { color: var(--text); }
+    [data-theme="dark"] .footer { border-top-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .day-card .day-title { color: var(--text); }
+    [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] .section-icon { color: var(--text); }
+    [data-theme="dark"] .section-icon { opacity: 0.7; }
+    [data-theme="dark"] .route-box .stat-label { color: var(--muted); }
+    [data-theme="dark"] .back-top { background: var(--card-bg); color: var(--text); border-color: var(--card-border); }
+    [data-theme="dark"] .people-card .people-role { color: var(--muted); }
+    [data-theme="dark"] .check-card h3 { color: var(--text); }
+    [data-theme="dark"] .check-card h4 { color: var(--text); }
+    [data-theme="dark"] .drinks-grid h4 { color: var(--text); }
+    [data-theme="dark"] .drinks-grid li { color: var(--text); }
+    [data-theme="dark"] .mobile-menu a { color: #e8ddd5; border-bottom-color: rgba(255,255,255,0.04); }
+    [data-theme="dark"] .hamburger span { background: #e8ddd5; }
+    [data-theme="dark"] .nav-logo { color: var(--text); }
+    [data-theme="dark"] .hero-date { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+    [data-theme="dark"] .illo-row svg { color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .reminder { background: #2f221c; border-left-color: #d05a20; }
+    [data-theme="dark"] .reminder span { color: var(--text); }
+    [data-theme="dark"] .place-link { color: var(--text); }
+    [data-theme="dark"] .place-link .ext-icon { color: var(--muted-light); }
+    [data-theme="dark"] .day-card .highlight { background: rgba(193,68,14,0.15); }
+    [data-theme="dark"] .day-card .highlight strong { color: #e07040; }
+    [data-theme="dark"] .badge { background: rgba(193,68,14,0.2); color: #e07040; }
+
   </style>
 </head>
 <body>
@@ -1139,12 +1226,16 @@
       Fiambalá
     </div>
     <div class="nav-links" id="navLinks">
-      <a href="#clima">Clima</a>
       <a href="#itinerario">Itinerario</a>
+      <a href="#mapa">Mapa</a>
+      <a href="#clima">Clima</a>
       <a href="#autos">Autos</a>
       <a href="#checklist">Checklist</a>
+      <a href="#fotos">Fotos</a>
       <a href="#docs">Documentación</a>
-      <a href="#mapa">Mapa</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Modo oscuro">
+        <i class="fa-regular fa-moon"></i>
+      </button>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menú">
       <span></span><span></span><span></span>
@@ -1153,12 +1244,13 @@
 
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#clima">Clima</a>
     <a href="#itinerario">Itinerario</a>
+    <a href="#mapa">Mapa</a>
+    <a href="#clima">Clima</a>
     <a href="#autos">Autos</a>
     <a href="#checklist">Checklist</a>
+    <a href="#fotos">Fotos</a>
     <a href="#docs">Documentación</a>
-    <a href="#mapa">Mapa</a>
   </div>
   <div class="menu-overlay" id="menuOverlay"></div>
 
@@ -1189,17 +1281,6 @@
     </div>
   </header>
 
-  <!-- ===== CLIMA ===== -->
-  <section class="reveal" id="clima" style="padding-top:2.5rem;padding-bottom:0;">
-    <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:0.5rem;font-weight:700;letter-spacing:-0.01em;">
-      <i class="fa-regular fa-sun" style="color:#c1440e;"></i>&nbsp; Clima estimado
-    </h3>
-    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 9 al 12 de julio</p>
-    <div class="weather-grid" id="weatherGrid">
-      <div class="weather-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando clima…</div>
-    </div>
-  </section>
-
   <!-- ===== ROUTE STATS ===== -->
   <section class="reveal" style="padding-top:2.5rem;padding-bottom:0;">
     <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:1.8rem;font-weight:700;letter-spacing:-0.01em;">
@@ -1228,85 +1309,6 @@
     </div>
   </section>
 
-  <!-- ===== PHOTO STRIP ===== -->
-  <section class="reveal reveal-d1" style="padding-bottom:0;">
-    <!-- SVG mountain illustration decoration -->
-    <div class="illo-row">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="1,22 8,8 15,22" />
-        <polygon points="8,22 13,12 18,22" />
-        <polygon points="13,22 18,16 23,22" />
-      </svg>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="2" />
-        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-      </svg>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
-        <circle cx="12" cy="10" r="2" />
-      </svg>
-    </div>
-    <div class="photo-strip">
-      <figure>
-        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Montañas de Catamarca" loading="lazy" />
-        <figcaption>RN40 — Cordillera</figcaption>
-        <p class="photo-desc">La legendaria Ruta 40 serpentea entre cerros rojizos y cardones. Bienvenidos al norte.</p>
-      </figure>
-      <figure>
-        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/ca%C3%B1on-del-indio" target="_blank" rel="noopener">
-          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1000&q=80" alt="Cañón del Indio" loading="lazy" />
-          <figcaption>Cañón del Indio<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
-        </a>
-        <p class="photo-desc">Sus paredes esculpidas por el viento esconden la silueta de un indígena. Un cañón sagrado en la cordillera.</p>
-      </figure>
-      <figure>
-        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/" target="_blank" rel="noopener">
-          <img src="https://images.unsplash.com/photo-1718471472310-77a63c5fad95?w=800&q=80" alt="Atardecer en el desierto" loading="lazy" />
-          <figcaption>Atardecer en Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
-        </a>
-        <p class="photo-desc">El cielo se tiñe de fuego cuando el sol se esconde tras los cerros. Magia pura del desierto.</p>
-      </figure>
-      <figure>
-        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/dunas" target="_blank" rel="noopener">
-          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80" alt="Dunas de Saujil" loading="lazy" />
-          <figcaption>Dunas de Saujil<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
-        </a>
-        <p class="photo-desc">Arena fina que cambia con cada viento. Parecen sacadas de otro planeta — ideales para sandboarding.</p>
-      </figure>
-      <figure>
-        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/termas-de-fiambal%C3%A1" target="_blank" rel="noopener">
-          <img src="https://images.unsplash.com/photo-1754775834111-d8ed7b89b68f?w=800&q=80" alt="Aguas termales" loading="lazy" />
-          <figcaption>Termas de Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
-        </a>
-        <p class="photo-desc">Agua termal brotando de la tierra a 4.000 msnm. Relajación total en la cima de los Andes.</p>
-      </figure>
-    </div>
-  </section>
-
-  <!-- ===== FUN FACTS ===== -->
-  <div class="fun-facts reveal reveal-d2">
-    <h3><i class="fa-regular fa-star"></i> Datos que no sabías</h3>
-    <div class="fun-facts-grid">
-      <div class="fun-fact-item">
-        <span class="fact-icon">🏔️</span>
-        La <strong>RN40</strong> tiene más de <strong>5.000 km</strong> — es la ruta más larga de Argentina y bordea toda la Cordillera de los Andes.
-      </div>
-      <div class="fun-fact-item">
-        <span class="fact-icon">♨️</span>
-        Las <strong>Termas de Fiambalá</strong> están entre las más altas del mundo. El agua brota a <strong>60°C</strong> desde lo profundo de la tierra.
-      </div>
-      <div class="fun-fact-item">
-        <span class="fact-icon">🏜️</span>
-        Las <strong>Dunas de Saujil</strong> cambian de forma con cada viento — nunca son iguales dos visitas seguidas. Algunas alcanzan <strong>80 m</strong> de altura.
-      </div>
-      <div class="fun-fact-item">
-        <span class="fact-icon">🍷</span>
-        Fiambalá está a <strong>1.500 msnm</strong>. Los vinos de altura tienen más color y taninos gracias a la intensa radiación solar.
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== ITINERARY ===== -->
   <section class="reveal reveal-d3" id="itinerario">
     <i class="fa-regular fa-calendar section-icon"></i>
     <h2>Itinerario</h2>
@@ -1416,6 +1418,28 @@
   <div class="section-divider"></div>
 
   <!-- ===== PEOPLE ===== -->
+  <!-- ===== MAPA ===== -->
+  <section class="reveal" id="mapa">
+    <i class="fa-regular fa-map section-icon"></i>
+    <h2>Mapa del viaje</h2>
+    <p class="section-subtitle">San Juan → Fiambalá por RN40 · 612 km</p>
+    <div class="map-wrapper" id="routeMap"></div>
+    <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);color:#7d5a4a;">
+      <i class="fa-regular fa-compass"></i>&nbsp; Salida: YPF Centenario RN40 · <a href="https://www.openstreetmap.org/directions?from=-31.538,-68.536&to=-27.6,-67.6" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver ruta en OpenStreetMap</a>
+    </p>
+  </section>
+
+  <!-- ===== CLIMA ===== -->
+  <section class="reveal" id="clima" style="padding-top:2.5rem;padding-bottom:0;">
+    <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:0.5rem;font-weight:700;letter-spacing:-0.01em;">
+      <i class="fa-regular fa-sun" style="color:#c1440e;"></i>&nbsp; Clima estimado
+    </h3>
+    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 9 al 12 de julio</p>
+    <div class="weather-grid" id="weatherGrid">
+      <div class="weather-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando clima…</div>
+    </div>
+  </section>
+
   <section class="reveal" id="autos">
     <i class="fa-solid fa-users section-icon"></i>
     <h2>Los autos</h2>
@@ -1539,6 +1563,85 @@
   <div class="section-divider"></div>
 
   <!-- ===== DOCUMENTATION ===== -->
+  <!-- ===== PHOTO STRIP ===== -->
+  <section class="reveal reveal-d1" id="fotos" style="padding-bottom:0;">
+    <!-- SVG mountain illustration decoration -->
+    <div class="illo-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="1,22 8,8 15,22" />
+        <polygon points="8,22 13,12 18,22" />
+        <polygon points="13,22 18,16 23,22" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="2" />
+        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+        <circle cx="12" cy="10" r="2" />
+      </svg>
+    </div>
+    <div class="photo-strip">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Montañas de Catamarca" loading="lazy" />
+        <figcaption>RN40 — Cordillera</figcaption>
+        <p class="photo-desc">La legendaria Ruta 40 serpentea entre cerros rojizos y cardones. Bienvenidos al norte.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/ca%C3%B1on-del-indio" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1000&q=80" alt="Cañón del Indio" loading="lazy" />
+          <figcaption>Cañón del Indio<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Sus paredes esculpidas por el viento esconden la silueta de un indígena. Un cañón sagrado en la cordillera.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1718471472310-77a63c5fad95?w=800&q=80" alt="Atardecer en el desierto" loading="lazy" />
+          <figcaption>Atardecer en Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">El cielo se tiñe de fuego cuando el sol se esconde tras los cerros. Magia pura del desierto.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/dunas" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80" alt="Dunas de Saujil" loading="lazy" />
+          <figcaption>Dunas de Saujil<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Arena fina que cambia con cada viento. Parecen sacadas de otro planeta — ideales para sandboarding.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/termas-de-fiambal%C3%A1" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1754775834111-d8ed7b89b68f?w=800&q=80" alt="Aguas termales" loading="lazy" />
+          <figcaption>Termas de Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Agua termal brotando de la tierra a 4.000 msnm. Relajación total en la cima de los Andes.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== FUN FACTS ===== -->
+  <div class="fun-facts reveal reveal-d2">
+    <h3><i class="fa-regular fa-star"></i> Datos que no sabías</h3>
+    <div class="fun-facts-grid">
+      <div class="fun-fact-item">
+        <span class="fact-icon">🏔️</span>
+        La <strong>RN40</strong> tiene más de <strong>5.000 km</strong> — es la ruta más larga de Argentina y bordea toda la Cordillera de los Andes.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">♨️</span>
+        Las <strong>Termas de Fiambalá</strong> están entre las más altas del mundo. El agua brota a <strong>60°C</strong> desde lo profundo de la tierra.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">🏜️</span>
+        Las <strong>Dunas de Saujil</strong> cambian de forma con cada viento — nunca son iguales dos visitas seguidas. Algunas alcanzan <strong>80 m</strong> de altura.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">🍷</span>
+        Fiambalá está a <strong>1.500 msnm</strong>. Los vinos de altura tienen más color y taninos gracias a la intensa radiación solar.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ITINERARY ===== -->
   <section class="reveal" id="docs">
     <i class="fa-solid fa-shield section-icon"></i>
     <h2>Documentación y seguridad</h2>
@@ -1560,24 +1663,13 @@
     </div>
 
     <!-- reminder -->
-    <div style="margin-top:1.2rem;background:#fff3e6;border-radius:12px;padding:0.9rem 1.2rem;font-size:clamp(0.8rem,2vw,0.9rem);display:flex;align-items:center;gap:0.7rem;border-left:3px solid #c1440e;">
+    <div class="reminder" style="margin-top:1.2rem;background:#fff3e6;border-radius:12px;padding:0.9rem 1.2rem;font-size:clamp(0.8rem,2vw,0.9rem);display:flex;align-items:center;gap:0.7rem;border-left:3px solid #c1440e;">
       <i class="fa-solid fa-circle-exclamation" style="color:#c1440e;font-size:1.1rem;flex-shrink:0;"></i>
       <span>Llevá <strong>efectivo</strong> suficiente — las termas y varios lugares no toman tarjeta. La entrada a Termas de Fiambalá es <strong>$20.000</strong> por persona (compra presencial).</span>
     </div>
   </section>
 
   <div class="section-divider"></div>
-
-  <!-- ===== MAPA ===== -->
-  <section class="reveal" id="mapa">
-    <i class="fa-regular fa-map section-icon"></i>
-    <h2>Mapa del viaje</h2>
-    <p class="section-subtitle">San Juan → Fiambalá por RN40 · 612 km</p>
-    <div class="map-wrapper" id="routeMap"></div>
-    <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);color:#7d5a4a;">
-      <i class="fa-regular fa-compass"></i>&nbsp; Salida: YPF Centenario RN40 · <a href="https://www.openstreetmap.org/directions?from=-31.538,-68.536&to=-27.6,-67.6" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver ruta en OpenStreetMap</a>
-    </p>
-  </section>
 
   <!-- ===== FOOTER ===== -->
   <footer class="reveal">
@@ -1601,6 +1693,31 @@
       setTimeout(hideSplash, 1000);
       // Click-to-skip
       splash.addEventListener('click', hideSplash);
+    })();
+
+    // ===== DARK MODE =====
+    (function() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const icon = btn.querySelector('i');
+      const html = document.documentElement;
+      const stored = localStorage.getItem('fiambala-theme');
+      if (stored === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        icon.className = 'fa-solid fa-sun';
+      }
+      btn.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+          html.removeAttribute('data-theme');
+          icon.className = 'fa-regular fa-moon';
+          localStorage.setItem('fiambala-theme', 'light');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+          icon.className = 'fa-solid fa-sun';
+          localStorage.setItem('fiambala-theme', 'dark');
+        }
+      });
     })();
 
     // ===== SCROLL REVEAL =====
