@@ -962,6 +962,78 @@
       }
     }
 
+    /* ===== MAPA ===== */
+    .map-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.08);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+    }
+    .map-wrapper iframe {
+      display: block;
+      width: 100%;
+      height: 400px;
+      border: none;
+    }
+    @media (max-width: 500px) { .map-wrapper iframe { height: 260px; } }
+
+    /* ===== CLIMA ===== */
+    .weather-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .weather-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1rem 1.2rem;
+      min-width: 120px;
+      flex: 1 1 100px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(44, 24, 16, 0.05);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+      transition: transform 0.2s;
+    }
+    .weather-card:hover { transform: translateY(-3px); }
+    .weather-card .day-name {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #7d5a4a;
+      font-weight: 600;
+    }
+    .weather-card .day-date {
+      font-size: 0.65rem;
+      color: #b8a89e;
+      margin-bottom: 0.3rem;
+    }
+    .weather-card .weather-icon {
+      font-size: 1.8rem;
+      margin: 0.2rem 0;
+    }
+    .weather-card .weather-temp {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #c1440e;
+    }
+    .weather-card .weather-temp small {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: #7d5a4a;
+    }
+    .weather-loading {
+      text-align: center;
+      color: #7d5a4a;
+      font-size: 0.9rem;
+      padding: 1rem;
+    }
+
   </style>
 </head>
 <body>
@@ -1030,8 +1102,19 @@
     </div>
   </header>
 
+  <!-- ===== CLIMA ===== -->
+  <section class="reveal" style="padding-top:2.5rem;padding-bottom:0;">
+    <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:0.5rem;font-weight:700;letter-spacing:-0.01em;">
+      <i class="fa-regular fa-sun" style="color:#c1440e;"></i>&nbsp; Clima estimado
+    </h3>
+    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 26 al 29 de marzo</p>
+    <div class="weather-grid" id="weatherGrid">
+      <div class="weather-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando clima…</div>
+    </div>
+  </section>
+
   <!-- ===== ROUTE STATS ===== -->
-  <section class="reveal" style="padding-top:2rem;padding-bottom:0;">
+  <section class="reveal" style="padding-top:2.5rem;padding-bottom:0;">
     <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:1.8rem;font-weight:700;letter-spacing:-0.01em;">
       El viaje en números
     </h3>
@@ -1396,6 +1479,26 @@
     </div>
   </section>
 
+  <div class="section-divider"></div>
+
+  <!-- ===== MAPA ===== -->
+  <section class="reveal" id="mapa">
+    <i class="fa-regular fa-map section-icon"></i>
+    <h2>Mapa del viaje</h2>
+    <p class="section-subtitle">San Juan → Fiambalá por RN40</p>
+    <div class="map-wrapper">
+      <iframe 
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-68.8,-28.8,-66.0,-26.0&amp;layer=mapnik&amp;marker=-27.6,-67.6" 
+        title="Mapa de Fiambalá y RN40"
+        loading="lazy"
+        referrerpolicy="no-referrer">
+      </iframe>
+    </div>
+    <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);color:#7d5a4a;">
+      <i class="fa-regular fa-compass"></i>&nbsp; 612 km desde San Juan · <a href="https://www.openstreetmap.org/relation/2991350" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver en OpenStreetMap</a>
+    </p>
+  </section>
+
   <!-- ===== FOOTER ===== -->
   <footer class="reveal">
     <p><i class="fa-regular fa-compass"></i> &nbsp;Fiambalá 2026 · 12 almas rumbo al norte</p>
@@ -1515,6 +1618,81 @@
         bar.style.width = Math.round((checked.length / items.length) * 100) + '%';
       }
     }
+
+    // ===== WEATHER =====
+    (function() {
+      const grid = document.getElementById('weatherGrid');
+      if (!grid) return;
+
+      const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+      const dates = ['2026-03-26', '2026-03-27', '2026-03-28', '2026-03-29'];
+
+      const wmoIcons = {
+        0: 'fa-solid fa-sun',
+        1: 'fa-solid fa-sun',
+        2: 'fa-regular fa-sun',
+        3: 'fa-solid fa-cloud',
+        45: 'fa-solid fa-smog', 48: 'fa-solid fa-smog',
+        51: 'fa-solid fa-cloud-rain', 53: 'fa-solid fa-cloud-rain', 55: 'fa-solid fa-cloud-rain',
+        61: 'fa-solid fa-cloud-showers-heavy', 63: 'fa-solid fa-cloud-showers-heavy', 65: 'fa-solid fa-cloud-showers-heavy',
+        71: 'fa-regular fa-snowflake', 73: 'fa-regular fa-snowflake', 75: 'fa-regular fa-snowflake',
+        80: 'fa-solid fa-cloud-showers-heavy', 81: 'fa-solid fa-cloud-showers-heavy', 82: 'fa-solid fa-cloud-showers-heavy',
+        95: 'fa-solid fa-cloud-bolt', 96: 'fa-solid fa-cloud-bolt', 99: 'fa-solid fa-cloud-bolt',
+      };
+      const wmoLabel = {
+        0: 'Despejado', 1: 'Mayormente despejado', 2: 'Parcialmente nublado', 3: 'Nublado',
+        45: 'Niebla', 48: 'Niebla', 51: 'Lluvia fina', 53: 'Lluvia fina', 55: 'Lluvia fina',
+        61: 'Lluvia', 63: 'Lluvia', 65: 'Lluvia intensa',
+        71: 'Nieve', 73: 'Nieve', 75: 'Nieve intensa',
+        80: 'Chubascos', 81: 'Chubascos', 82: 'Chubascos',
+        95: 'Tormenta', 96: 'Tormenta', 99: 'Tormenta',
+      };
+
+      function renderCard(dateStr, max, min, wcode) {
+        const d = new Date(dateStr + 'T12:00:00');
+        const dayName = days[d.getDay()];
+        const parts = dateStr.split('-');
+        const shortDate = parts[2] + '/' + parts[1];
+        const icon = wmoIcons[wcode] || 'fa-regular fa-sun';
+        const label = wmoLabel[wcode] || '—';
+        return `
+          <div class="weather-card reveal">
+            <div class="day-name">${dayName}</div>
+            <div class="day-date">${shortDate}</div>
+            <div class="weather-icon"><i class="${icon}"></i></div>
+            <div class="weather-temp">${max}° <small>min ${min}°</small></div>
+            <div style="font-size:0.65rem;color:#b8a89e;margin-top:0.2rem;">${label}</div>
+          </div>
+        `;
+      }
+
+      // Try Open-Meteo archive API, fallback to typical values
+      const url = 'https://archive-api.open-meteo.com/v1/archive?latitude=-27.6&longitude=-67.6&start_date=2026-03-26&end_date=2026-03-29&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto';
+
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          if (!data.daily) throw new Error('No data');
+          const maxes = data.daily.temperature_2m_max;
+          const mins = data.daily.temperature_2m_min;
+          const codes = data.daily.weathercode;
+          grid.innerHTML = dates.map((d, i) =>
+            renderCard(d, Math.round(maxes[i]), Math.round(mins[i]), codes[i])
+          ).join('');
+        })
+        .catch(() => {
+          // Fallback: valores típicos de Fiambalá en marzo
+          const fallback = [
+            { max: 30, min: 14, code: 0 },
+            { max: 28, min: 13, code: 1 },
+            { max: 31, min: 15, code: 0 },
+            { max: 27, min: 12, code: 2 },
+          ];
+          grid.innerHTML = dates.map((d, i) =>
+            renderCard(d, fallback[i].max, fallback[i].min, fallback[i].code)
+          ).join('');
+        });
+    })();
 
     // ===== COUNTDOWN =====
     (function() {
