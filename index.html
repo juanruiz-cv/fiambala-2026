@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiambalá 2026 — Viaje al norte argentino</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='22' cy='10' r='5' fill='%23e8a040' opacity='0.9'/%3E%3Cpolygon points='2,30 10,6 16,18 20,10 30,30' fill='%23c1440e'/%3E%3Cpolygon points='10,6 14,14 16,8' fill='%2399330a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #2c1810;
+      background: #faf6f0;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(2.2rem, 10vw, 5.5rem); letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.6rem, 6vw, 3.2rem); text-align: center; margin-bottom: 2rem; position: relative; }
+    h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: #c1440e;
+      margin: 0.6rem auto 0;
+      border-radius: 2px;
+    }
+    h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    @media (max-width: 400px) { h3 { font-size: 1.1rem; } }
+    .section-subtitle {
+      text-align: center;
+      color: #7d5a4a;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      margin-top: -1.4rem;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .tag {
+      display: inline-block;
+      background: #c1440e15;
+      color: #c1440e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.9rem;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== LAYOUT ===== */
+    section { padding: 4rem 1.2rem; max-width: 1200px; margin: 0 auto; }
+    @media (min-width: 768px) { section { padding: 6rem 2rem; } }
+    @media (max-width: 400px) { section { padding: 2.5rem 0.9rem; } }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      padding: 1.5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.6) 0%,
+        rgba(0,0,0,0.3) 40%,
+        rgba(0,0,0,0.7) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      width: 100%;
+    }
+    .hero-content .tag {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .hero h1 { margin-bottom: 0.3rem; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      opacity: 0.95;
+      margin-bottom: 1rem;
+    }
+    .hero-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      font-weight: 600;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-date i { color: #f0c27a; }
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      animation: float 2s ease-in-out infinite;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .hero-scroll:hover { color: #fff; }
+    .hero-scroll i { font-size: 1rem; }
+    @keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+    @media (max-width: 400px) {
+      .hero { padding: 1rem; min-height: 92dvh; }
+      .hero-date { padding: 0.4rem 0.9rem; gap: 0.3rem; }
+    }
+
+    /* ===== NAV ===== */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(44, 24, 16, 0.08);
+      padding: 0 1.2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #c1440e;
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .nav-links a { color: #2c1810; opacity: 0.7; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 1; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #2c1810;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: rgba(250, 246, 240, 0.98);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1rem 1.5rem 1.5rem;
+      border-bottom: 1px solid rgba(44, 24, 16, 0.08);
+      flex-direction: column;
+      gap: 0.8rem;
+      z-index: 99;
+      transform: translateY(-110%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open { transform: translateY(0); }
+    .mobile-menu a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #2c1810;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(44,24,16,0.06);
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+    }
+
+    /* ===== SECTION DIVIDERS ===== */
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(44,24,16,0.08), transparent);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ===== DECORATIVE ICONS ===== */
+    .deco-icon {
+      display: block;
+      margin: 0 auto 0.5rem;
+      color: #c1440e22;
+      font-size: 1.6rem;
+    }
+
+    /* ===== ITINERARY ===== */
+    .itinerary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    @media (max-width: 400px) {
+      .itinerary-grid { grid-template-columns: 1fr; gap: 0.9rem; }
+    }
+    .day-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.06);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    @media (max-width: 400px) { .day-card { padding: 1.2rem 1rem; } }
+    .day-card:hover { transform: translateY(-4px); box-shadow: 0 8px 40px rgba(44, 24, 16, 0.1); }
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .day-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #c1440e, #e06a2b);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .day-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .day-subtitle {
+      font-size: 0.75rem;
+      color: #7d5a4a;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .day-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: #4a3528;
+    }
+    @media (max-width: 400px) { .day-item { font-size: 0.85rem; } }
+    .day-item i {
+      width: 16px;
+      color: #c1440e;
+      font-size: 0.8rem;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    .day-item .time {
+      font-weight: 700;
+      color: #2c1810;
+      white-space: nowrap;
+    }
+    .day-card .highlight {
+      background: #fef3e9;
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      margin-top: 0.2rem;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-left: 3px solid #c1440e;
+    }
+    .day-card .highlight i { color: #c1440e; flex-shrink: 0; }
+    .day-card .highlight strong { color: #c1440e; }
+
+    /* Enlaces externos en itinerario */
+    .place-link {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(193, 68, 14, 0.3);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .place-link:hover {
+      border-bottom-color: #c1440e;
+      color: #c1440e;
+    }
+    .place-link .ext-icon {
+      font-size: 0.6rem;
+      margin-left: 2px;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+    }
+    .place-link:hover .ext-icon { opacity: 1; }
+    .photo-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .photo-link:hover figcaption { text-decoration: underline; }
+
+    /* ===== PHOTO STRIP — GRID UNIFORME ===== */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+    .photo-strip figure {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .photo-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .photo-strip figure:hover img { transform: scale(1.07); }
+    .photo-strip figcaption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7) 70%);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    @media (min-width: 540px) {
+      .photo-strip {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.8rem;
+      }
+    }
+
+    /* ===== PEOPLE ===== */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+    @media (max-width: 400px) { .cars-grid { gap: 0.9rem; } }
+    .car-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.8rem 1.2rem;
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.06);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+      text-align: center;
+    }
+    .car-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      margin: 0 auto 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #fff;
+    }
+    .car-icon.ale { background: linear-gradient(135deg, #1a5276, #2e86c1); }
+    .car-icon.bruno { background: linear-gradient(135deg, #7d3c98, #a569bd); }
+    .car-icon.andy { background: linear-gradient(135deg, #1e8449, #52be80); }
+    .car-card h3 { font-size: 1.05rem; margin-bottom: 0.2rem; }
+    .car-card .driver { font-size: 0.8rem; color: #7d5a4a; }
+    .car-passengers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 0.8rem;
+    }
+    .car-passengers span {
+      background: #f5efe8;
+      padding: 0.25rem 0.9rem;
+      border-radius: 18px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    @media (max-width: 400px) { .car-passengers span { font-size: 0.78rem; padding: 0.2rem 0.7rem; } }
+
+    /* ===== CHECKLIST ===== */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    @media (max-width: 400px) { .checklist-grid { grid-template-columns: 1fr; gap: 0.9rem; } }
+    .check-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.06);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+    }
+    .check-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .check-card h3 i { color: #c1440e; }
+    .check-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .check-card li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #4a3528;
+    }
+    .check-card li i {
+      width: 14px;
+      font-size: 0.65rem;
+      color: #c1440e;
+    }
+    .check-card .badge {
+      display: inline-block;
+      background: #c1440e10;
+      color: #c1440e;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 8px;
+      margin-left: 0.2rem;
+    }
+    .drinks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+    @media (max-width: 380px) { .drinks-grid { grid-template-columns: 1fr; } }
+    .drinks-grid h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .drinks-grid h4 i { font-size: 0.7rem; }
+    .drinks-grid ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .drinks-grid li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #4a3528;
+    }
+    .drinks-grid li span {
+      flex: 1;
+      word-break: break-word;
+    }
+    .drinks-grid li i {
+      width: 14px;
+      font-size: 0.65rem;
+      color: #c1440e;
+    }
+
+    /* ===== DOCS ===== */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.7rem;
+    }
+    @media (max-width: 400px) { .docs-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; } }
+    @media (max-width: 320px) { .docs-grid { grid-template-columns: 1fr; } }
+    .doc-chip {
+      background: #fff;
+      border: 1px solid rgba(44, 24, 16, 0.08);
+      border-radius: 12px;
+      padding: 0.8rem 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    @media (max-width: 400px) { .doc-chip { font-size: 0.75rem; padding: 0.6rem 0.7rem; gap: 0.4rem; } }
+    .doc-chip:hover { background: #f5efe8; border-color: #c1440e30; }
+    .doc-chip i { color: #c1440e; font-size: 0.9rem; width: 18px; text-align: center; flex-shrink: 0; }
+    .doc-chip.danger i { color: #d32f2f; }
+    .doc-chip.warn i { color: #f39c12; }
+
+    /* ===== ROUTE BOX ===== */
+    .route-box {
+      background: #fff;
+      border-radius: 18px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.06);
+      border: 1px solid rgba(44, 24, 16, 0.06);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem 1.5rem;
+      text-align: center;
+    }
+    .route-box .stat { flex: 1 1 100px; }
+    .route-box .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #c1440e;
+    }
+    @media (max-width: 400px) { .route-box .stat-value { font-size: 1.4rem; } }
+    .route-box .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #7d5a4a;
+    }
+    .route-box .divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(44, 24, 16, 0.1);
+    }
+    @media (max-width: 500px) { .route-box .divider { width: 50px; height: 1px; } }
+
+    /* Descripciones de fotos */
+    .photo-desc {
+      font-size: 0.74rem;
+      color: #7d5a4a;
+      padding: 0.4rem 0.5rem 0.2rem;
+      line-height: 1.45;
+      font-style: italic;
+      opacity: 0.85;
+    }
+
+    /* Datos curiosos */
+    .fun-facts {
+      max-width: 800px;
+      margin: 1.5rem auto;
+      background: linear-gradient(135deg, #fdf6f0, #fff);
+      border-radius: 18px;
+      padding: 1.5rem 1.8rem;
+      border: 1px solid rgba(193, 68, 14, 0.1);
+      box-shadow: 0 4px 24px rgba(44, 24, 16, 0.05);
+    }
+    .fun-facts h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #5a3a2a;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .fun-facts h3 i { color: #c1440e; }
+    .fun-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+    }
+    .fun-fact-item {
+      background: rgba(193, 68, 14, 0.03);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-size: 0.82rem;
+      color: #4a3528;
+      line-height: 1.5;
+      border: 1px solid rgba(193, 68, 14, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .fun-fact-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(193, 68, 14, 0.08);
+    }
+    .fun-fact-item .fact-icon {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .fun-fact-item strong { color: #c1440e; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1.2rem;
+      color: #7d5a4a;
+      font-size: 0.82rem;
+      border-top: 1px solid rgba(44, 24, 16, 0.06);
+    }
+    footer i { color: #c1440e; }
+
+    /* ===== SVG ILLUSTRATIONS ===== */
+    .illo-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      opacity: 0.15;
+    }
+    .illo-row svg { width: 40px; height: 40px; }
+
+    /* ===== EASY ICON DECO ===== */
+    .section-icon {
+      display: block;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #c1440e;
+      margin-bottom: 0.2rem;
+      opacity: 0.7;
+    }
+
+    /* ===== MENU OVERLAY ===== */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 98;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      cursor: pointer;
+    }
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ===== SPLASH SCREEN ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #faf6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
+    }
+    .splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .splash-mountain {
+      width: 72px;
+      height: 72px;
+      animation: pulse-splash 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse-splash {
+      0%, 100% { transform: scale(1) translateY(0); opacity: 0.6; }
+      50% { transform: scale(1.08) translateY(-4px); opacity: 1; }
+    }
+    .splash-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #c1440e;
+      letter-spacing: 0.03em;
+      opacity: 0;
+      animation: fade-in-splash 0.6s ease 0.4s forwards;
+    }
+    @keyframes fade-in-splash {
+      to { opacity: 1; }
+    }
+    .splash-loader {
+      width: 40px;
+      height: 3px;
+      background: rgba(193,68,14,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 0.3rem;
+    }
+    .splash-loader::after {
+      content: '';
+      display: block;
+      width: 40%;
+      height: 100%;
+      background: #c1440e;
+      border-radius: 4px;
+      animation: loader-bar 1s ease-in-out infinite;
+    }
+    @keyframes loader-bar {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(250%); }
+    }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+    .reveal-d5 { transition-delay: 0.5s; }
+
+    /* ===== BACK TO TOP ===== */
+    .back-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 90;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #c1440e;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(193, 68, 14, 0.3);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+                  opacity 0.3s ease,
+                  visibility 0.3s ease;
+      transform: translateY(80px);
+      opacity: 0;
+      visibility: hidden;
+    }
+    .back-top.visible {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(193, 68, 14, 0.4);
+    }
+    .back-top:active {
+      transform: translateY(0);
+    }
+    @media (max-width: 500px) {
+      .back-top {
+        bottom: 1.2rem;
+        right: 1.2rem;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ===== SPLASH ===== -->
+  <div class="splash" id="splash">
+    <svg class="splash-mountain" viewBox="0 0 32 32" fill="none">
+      <circle cx="22" cy="10" r="5" fill="#e8a040" opacity="0.9"/>
+      <polygon points="2,30 10,6 16,18 20,10 30,30" fill="#c1440e"/>
+      <polygon points="10,6 14,14 16,8" fill="#99330a"/>
+    </svg>
+    <div class="splash-text">Fiambalá 2026</div>
+    <div class="splash-loader"></div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav-bar" id="navBar">
+    <div class="nav-logo">
+      <i class="fa-regular fa-compass" style="font-size:0.85rem;margin-right:4px;"></i>
+      Fiambalá
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#itinerario">Itinerario</a>
+      <a href="#autos">Autos</a>
+      <a href="#checklist">Checklist</a>
+      <a href="#docs">Documentación</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#itinerario">Itinerario</a>
+    <a href="#autos">Autos</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#docs">Documentación</a>
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero" id="hero">
+    <div class="hero-bg">
+      <picture>
+        <source srcset="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80" media="(min-width: 1200px)" />
+        <source srcset="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1000&q=80" media="(min-width: 600px)" />
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Paisaje de montañas de Catamarca" />
+      </picture>
+    </div>
+    <div class="hero-content">
+      <span class="tag"><i class="fa-regular fa-compass"></i> &nbsp;Aventura al norte</span>
+      <h1>Fiambalá 2026</h1>
+      <p class="hero-sub">Catamarca — 4 días de ruta, termas y desierto</p>
+      <div class="hero-date">
+        <i class="fa-regular fa-calendar"></i>
+        San Juan → Fiambalá
+        <span style="opacity:0.4;margin:0 0.2em;">•</span>
+        4 días · 3 autos · 12 personas
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Descubrí el viaje</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </div>
+  </header>
+
+  <!-- ===== ROUTE STATS ===== -->
+  <section class="reveal" style="padding-top:2rem;padding-bottom:0;">
+    <div class="route-box">
+      <div class="stat">
+        <div class="stat-value">612 km</div>
+        <div class="stat-label">Ida por RN40</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <div class="stat-value">~8 hs</div>
+        <div class="stat-label">De viaje</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Autos</div>
+      </div>
+      <div class="divider"></div>
+      <div class="stat">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Viajeros</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHOTO STRIP ===== -->
+  <section class="reveal reveal-d1" style="padding-bottom:0;">
+    <!-- SVG mountain illustration decoration -->
+    <div class="illo-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="1,22 8,8 15,22" />
+        <polygon points="8,22 13,12 18,22" />
+        <polygon points="13,22 18,16 23,22" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="2" />
+        <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
+        <circle cx="12" cy="10" r="2" />
+      </svg>
+    </div>
+    <div class="photo-strip">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80" alt="Montañas de Catamarca" loading="lazy" />
+        <figcaption>RN40 — Cordillera</figcaption>
+        <p class="photo-desc">La legendaria Ruta 40 serpentea entre cerros rojizos y cardones. Bienvenidos al norte.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/ca%C3%B1on-del-indio" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1000&q=80" alt="Cañón del Indio" loading="lazy" />
+          <figcaption>Cañón del Indio<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Sus paredes esculpidas por el viento esconden la silueta de un indígena. Un cañón sagrado en la cordillera.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1718471472310-77a63c5fad95?w=800&q=80" alt="Atardecer en el desierto" loading="lazy" />
+          <figcaption>Atardecer en Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">El cielo se tiñe de fuego cuando el sol se esconde tras los cerros. Magia pura del desierto.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/dunas" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&q=80" alt="Dunas de Saujil" loading="lazy" />
+          <figcaption>Dunas de Saujil<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Arena fina que cambia con cada viento. Parecen sacadas de otro planeta — ideales para sandboarding.</p>
+      </figure>
+      <figure>
+        <a class="place-link photo-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/termas-de-fiambal%C3%A1" target="_blank" rel="noopener">
+          <img src="https://images.unsplash.com/photo-1754775834111-d8ed7b89b68f?w=800&q=80" alt="Aguas termales" loading="lazy" />
+          <figcaption>Termas de Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></figcaption>
+        </a>
+        <p class="photo-desc">Agua termal brotando de la tierra a 4.000 msnm. Relajación total en la cima de los Andes.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== FUN FACTS ===== -->
+  <div class="fun-facts reveal reveal-d2">
+    <h3><i class="fa-regular fa-star"></i> Datos que no sabías</h3>
+    <div class="fun-facts-grid">
+      <div class="fun-fact-item">
+        <span class="fact-icon">🏔️</span>
+        La <strong>RN40</strong> tiene más de <strong>5.000 km</strong> — es la ruta más larga de Argentina y bordea toda la Cordillera de los Andes.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">♨️</span>
+        Las <strong>Termas de Fiambalá</strong> están entre las más altas del mundo. El agua brota a <strong>60°C</strong> desde lo profundo de la tierra.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">🏜️</span>
+        Las <strong>Dunas de Saujil</strong> cambian de forma con cada viento — nunca son iguales dos visitas seguidas. Algunas alcanzan <strong>80 m</strong> de altura.
+      </div>
+      <div class="fun-fact-item">
+        <span class="fact-icon">🍷</span>
+        Fiambalá está a <strong>1.500 msnm</strong>. Los vinos de altura tienen más color y taninos gracias a la intensa radiación solar.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ITINERARY ===== -->
+  <section class="reveal reveal-d3" id="itinerario">
+    <i class="fa-regular fa-calendar section-icon"></i>
+    <h2>Itinerario</h2>
+    <p class="section-subtitle">Jueves 26 — Domingo 29 de marzo</p>
+
+    <div class="itinerary-grid">
+
+      <!-- DÍA 1 -->
+      <div class="day-card reveal reveal-d1">
+        <div class="day-header">
+          <div class="day-badge">1</div>
+          <div>
+            <div class="day-title">Jueves</div>
+            <div class="day-subtitle">Salida</div>
+          </div>
+        </div>
+        <div class="day-item">
+          <i class="fa-regular fa-clock"></i>
+          <div><span class="time">06:00</span> — Salida YPF Centenario RN40</div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-route"></i>
+          <div><span class="time">612 km · ~8 h</span> — Ruta por RN40</div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-house-chimney"></i>
+          <div><span class="time">15:00</span> — Check-in <a class="place-link" href="https://hotelvip.com.ar/hotel/cabanas-don-nato-fiambala/" target="_blank" rel="noopener">Cabañas Don Ñato<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-bridge"></i>
+          <div><span class="time">17:00</span> — <a class="place-link" href="https://tinogasta.tur.ar/" target="_blank" rel="noopener">Puente Colgante / Ecoparque Tinogasta<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+      </div>
+
+      <!-- DÍA 2 -->
+      <div class="day-card reveal reveal-d2">
+        <div class="day-header">
+          <div class="day-badge">2</div>
+          <div>
+            <div class="day-title">Viernes</div>
+            <div class="day-subtitle">Termas y bodega</div>
+          </div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-wine-bottle"></i>
+          <div><span class="time">13:00</span> — <a class="place-link" href="https://www.fdd.wine/" target="_blank" rel="noopener">Finca Don Diego<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-building-columns"></i>
+          <div><span class="time">16:00</span> — <a class="place-link" href="https://tinogasta.tur.ar/rutadeladobe.html" target="_blank" rel="noopener">Ruta del Adobe<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item highlight">
+          <i class="fa-solid fa-hot-tub-person"></i>
+          <div><span class="time">20:00</span> — <strong><a class="place-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/termas-de-fiambal%C3%A1" target="_blank" rel="noopener" style="color:#c1440e;border-bottom-color:rgba(193,68,14,0.3);">Termas de Fiambalá<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></strong> · Entrada $20.000 (compra presencial)</div>
+        </div>
+      </div>
+
+      <!-- DÍA 3 -->
+      <div class="day-card reveal reveal-d3">
+        <div class="day-header">
+          <div class="day-badge">3</div>
+          <div>
+            <div class="day-title">Sábado</div>
+            <div class="day-subtitle">Aventura total</div>
+          </div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-mountain"></i>
+          <div><span class="time">10:00</span> — <a class="place-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/ca%C3%B1on-del-indio" target="_blank" rel="noopener">Loro Huasi y Cañón del Indio<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-dharmachakra"></i>
+          <div><a class="place-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/dunas" target="_blank" rel="noopener">Dunas Mágicas de Saujil<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-landmark"></i>
+          <div><a class="place-link" href="https://www.turismofiambala.com.ar/qu%C3%A9-visitar/museo-del-hombre" target="_blank" rel="noopener">Museo del Hombre<i class="fa-solid fa-up-right-from-square ext-icon"></i></a></div>
+        </div>
+        <div class="day-item highlight">
+          <i class="fa-regular fa-futbol"></i>
+          <div><span class="time">22:00</span> — <strong>Partido Argentina</strong> 🏆</div>
+        </div>
+      </div>
+
+      <!-- DÍA 4 -->
+      <div class="day-card reveal reveal-d4">
+        <div class="day-header">
+          <div class="day-badge">4</div>
+          <div>
+            <div class="day-title">Domingo</div>
+            <div class="day-subtitle">Vuelta a casa</div>
+          </div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-mug-saucer"></i>
+          <div><span class="time">10:00</span> — Desayuno / Brunch</div>
+        </div>
+        <div class="day-item">
+          <i class="fa-solid fa-car-rear"></i>
+          <div><span class="time">12:00</span> — Regreso a San Juan</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== PEOPLE ===== -->
+  <section class="reveal" id="autos">
+    <i class="fa-solid fa-users section-icon"></i>
+    <h2>Los autos</h2>
+    <p class="section-subtitle">12 personas, 3 vehículos, una sola aventura</p>
+
+    <div class="cars-grid">
+      <div class="car-card reveal reveal-d1">
+        <div class="car-icon ale"><i class="fa-solid fa-car"></i></div>
+        <h3>Auto de Ale</h3>
+        <p class="driver"><i class="fa-regular fa-id-card"></i> Conduce: Alejandro</p>
+        <div class="car-passengers">
+          <span>Alejandro</span>
+          <span>Ponja</span>
+          <span>Ángel</span>
+          <span>Rosario</span>
+        </div>
+      </div>
+
+      <div class="car-card reveal reveal-d2">
+        <div class="car-icon bruno"><i class="fa-solid fa-car"></i></div>
+        <h3>Auto de Bruno</h3>
+        <p class="driver"><i class="fa-regular fa-id-card"></i> Conduce: Bruno</p>
+        <div class="car-passengers">
+          <span>Bruno</span>
+          <span>Julieta</span>
+          <span>Braian</span>
+        </div>
+      </div>
+
+      <div class="car-card reveal reveal-d3">
+        <div class="car-icon andy"><i class="fa-solid fa-car"></i></div>
+        <h3>Auto de Andy</h3>
+        <p class="driver"><i class="fa-regular fa-id-card"></i> Conduce: Mariano</p>
+        <div class="car-passengers">
+          <span>Mariano</span>
+          <span>Micaela</span>
+          <span>Andy</span>
+          <span>Pablo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== CHECKLIST ===== -->
+  <section class="reveal" id="checklist">
+    <i class="fa-solid fa-list-check section-icon"></i>
+    <h2>Checklist</h2>
+    <p class="section-subtitle">Todo lo que hay que llevar</p>
+
+    <div class="checklist-grid">
+
+      <div class="check-card reveal reveal-d1">
+        <h3><i class="fa-solid fa-shirt"></i> Vestimenta</h3>
+        <ul>
+          <li><i class="fa-regular fa-circle-check"></i> Ropa en capas</li>
+          <li><i class="fa-regular fa-circle-check"></i> Campera</li>
+          <li><i class="fa-regular fa-circle-check"></i> Ropa térmica</li>
+          <li><i class="fa-regular fa-circle-check"></i> Gorro / gorro de lana</li>
+          <li><i class="fa-regular fa-circle-check"></i> Bikini / malla</li>
+          <li><i class="fa-regular fa-circle-check"></i> Ojotas</li>
+        </ul>
+      </div>
+
+      <div class="check-card reveal reveal-d2">
+        <h3><i class="fa-solid fa-backpack"></i> Accesorios</h3>
+        <ul>
+          <li><i class="fa-regular fa-circle-check"></i> Protector solar</li>
+          <li><i class="fa-regular fa-circle-check"></i> Lentes de sol</li>
+          <li><i class="fa-regular fa-circle-check"></i> Adaptador de corriente</li>
+          <li><i class="fa-regular fa-circle-check"></i> Mochila chica</li>
+          <li><i class="fa-regular fa-circle-check"></i> Botella de agua</li>
+          <li><i class="fa-regular fa-circle-check"></i> Botiquín</li>
+          <li><i class="fa-regular fa-circle-check"></i> Toalla</li>
+          <li><i class="fa-regular fa-circle-check"></i> Conservadora / heladerita</li>
+        </ul>
+      </div>
+
+      <div class="check-card reveal reveal-d3">
+        <h3><i class="fa-solid fa-utensils"></i> Comida</h3>
+        <ul>
+          <li><i class="fa-regular fa-circle-check"></i> Infusiones (mate, té, café)</li>
+          <li><i class="fa-regular fa-circle-check"></i> Desayunos</li>
+          <li><i class="fa-regular fa-circle-check"></i> Almuerzo</li>
+          <li><i class="fa-regular fa-circle-check"></i> Cena</li>
+          <li><i class="fa-regular fa-circle-check"></i> Snacks para la ruta</li>
+        </ul>
+      </div>
+
+      <div class="check-card reveal reveal-d4">
+        <h3><i class="fa-solid fa-wine-glass"></i> Bebidas</h3>
+        <div class="drinks-grid">
+          <div>
+            <h4><i class="fa-solid fa-wine-bottle"></i> Con alcohol</h4>
+            <ul>
+              <li><i class="fa-regular fa-circle-check"></i> Patagonia (cerveza)</li>
+              <li><i class="fa-regular fa-circle-check"></i> Vino tinto / blanco</li>
+              <li><i class="fa-regular fa-circle-check"></i> Fernet</li>
+              <li><i class="fa-regular fa-circle-check"></i> Whisky</li>
+            </ul>
+          </div>
+          <div>
+            <h4><i class="fa-solid fa-droplet"></i> Sin alcohol</h4>
+            <ul>
+              <li><i class="fa-regular fa-circle-check"></i><span>3 bidones de agua <span class="badge">IMPORTANTE</span></span></li>
+              <li><i class="fa-regular fa-circle-check"></i><span>3 Coca-Cola</span></li>
+              <li><i class="fa-regular fa-circle-check"></i><span>Hielo</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== DOCUMENTATION ===== -->
+  <section class="reveal" id="docs">
+    <i class="fa-solid fa-shield section-icon"></i>
+    <h2>Documentación y seguridad</h2>
+    <p class="section-subtitle">Revisá todo antes de salir</p>
+
+    <div class="docs-grid">
+      <div class="doc-chip reveal reveal-d1"><i class="fa-solid fa-money-bill-wave"></i> Efectivo</div>
+      <div class="doc-chip reveal reveal-d1"><i class="fa-regular fa-id-card"></i> DNI</div>
+      <div class="doc-chip reveal reveal-d1"><i class="fa-regular fa-id-card"></i> Carnet de conducir</div>
+      <div class="doc-chip reveal reveal-d2"><i class="fa-solid fa-file-shield"></i> Seguro del auto</div>
+      <div class="doc-chip warn reveal reveal-d2"><i class="fa-solid fa-file-circle-check"></i> RTO vigente</div>
+      <div class="doc-chip reveal reveal-d2"><i class="fa-solid fa-car"></i> Cédula del vehículo</div>
+      <div class="doc-chip warn reveal reveal-d3"><i class="fa-regular fa-lightbulb"></i> Foco de repuesto</div>
+      <div class="doc-chip danger reveal reveal-d3"><i class="fa-solid fa-fire-extinguisher"></i> Matafuego</div>
+      <div class="doc-chip danger reveal reveal-d3"><i class="fa-solid fa-triangle-exclamation"></i> Balizas</div>
+      <div class="doc-chip reveal reveal-d4"><i class="fa-solid fa-circle"></i> Rueda de auxilio</div>
+      <div class="doc-chip reveal reveal-d4"><i class="fa-solid fa-tools"></i> Criquet</div>
+      <div class="doc-chip reveal reveal-d4"><i class="fa-solid fa-wrench"></i> Llave de rueda</div>
+    </div>
+
+    <!-- reminder -->
+    <div style="margin-top:1.2rem;background:#fff3e6;border-radius:12px;padding:0.9rem 1.2rem;font-size:clamp(0.8rem,2vw,0.9rem);display:flex;align-items:center;gap:0.7rem;border-left:3px solid #c1440e;">
+      <i class="fa-solid fa-circle-exclamation" style="color:#c1440e;font-size:1.1rem;flex-shrink:0;"></i>
+      <span>Llevá <strong>efectivo</strong> suficiente — las termas y varios lugares no toman tarjeta. La entrada a Termas de Fiambalá es <strong>$20.000</strong> por persona (compra presencial).</span>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="reveal">
+    <p><i class="fa-regular fa-compass"></i> &nbsp;Fiambalá 2026 · 12 almas rumbo al norte</p>
+    <p style="margin-top:0.3rem;opacity:0.6;">RN40 · Termas · Dunas · Vino · Argentina 🇦🇷</p>
+    <p style="margin-top:0.6rem;opacity:0.35;font-size:0.75rem;">Hecho con ❤️ para los 12 viajeros</p>
+  </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button class="back-top" id="backTop" aria-label="Volver arriba">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // ===== SPLASH SCREEN =====
+    (function() {
+      const splash = document.getElementById('splash');
+      const hideSplash = () => splash.classList.add('hidden');
+      // Auto-hide after 1.8s
+      setTimeout(hideSplash, 1000);
+      // Click-to-skip
+      splash.addEventListener('click', hideSplash);
+    })();
+
+    // ===== SCROLL REVEAL =====
+    (function() {
+      const els = document.querySelectorAll('.reveal');
+      if (!els.length) return;
+      const ro = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              ro.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+      els.forEach(el => ro.observe(el));
+    })();
+
+    // ===== SMOOTH SCROLL + CLOSE MENU =====
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      mobileMenu.classList.remove('open');
+      menuOverlay.classList.remove('open');
+    }
+
+    function openMenu() {
+      hamburger.classList.add('active');
+      mobileMenu.classList.add('open');
+      menuOverlay.classList.add('open');
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+          closeMenu();
+        }
+      });
+    });
+
+    // Hamburger toggle
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('open');
+      isOpen ? closeMenu() : openMenu();
+    });
+
+    // Overlay click to close
+    menuOverlay.addEventListener('click', closeMenu);
+
+    // Close on resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 640) closeMenu();
+    });
+
+    // ===== BACK TO TOP =====
+    const backTop = document.getElementById('backTop');
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 600);
+    });
+
+    // ===== HERO SCROLL → NEXT SECTION =====
+    document.querySelector('.hero-scroll')?.addEventListener('click', () => {
+      const next = document.querySelector('.route-box')?.closest('section');
+      if (next) next.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // ===== NAV LOGO → TOP =====
+    document.querySelector('.nav-logo')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+  </script>
+</body>
+</html>
