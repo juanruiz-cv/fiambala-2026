@@ -660,16 +660,46 @@
       gap: 0.5rem;
       font-size: 0.85rem;
       color: #4a3528;
+      padding: 0.3rem 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.2s;
+      user-select: none;
     }
+    .drinks-grid li:hover { background: rgba(193, 68, 14, 0.06); }
+    .drinks-grid li:active { background: rgba(193, 68, 14, 0.12); }
     .drinks-grid li span {
       flex: 1;
       word-break: break-word;
     }
     .drinks-grid li i {
-      width: 14px;
-      font-size: 0.65rem;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
       color: #c1440e;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid rgba(193, 68, 14, 0.3);
+      border-radius: 5px;
+      background: transparent;
     }
+    .drinks-grid li i::before {
+      opacity: 0;
+      transition: opacity 0.2s;
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+    }
+    .drinks-grid li:hover i { border-color: #c1440e; }
+    .drinks-grid li.checked i {
+      border-color: #c1440e;
+      background: #c1440e;
+      color: #fff;
+    }
+    .drinks-grid li.checked i::before { opacity: 1; }
 
     /* ===== DOCS ===== */
     .docs-grid {
