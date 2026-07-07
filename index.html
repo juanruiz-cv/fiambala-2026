@@ -124,6 +124,15 @@
       margin-bottom: 2.5rem;
       font-weight: 300;
     }
+    .section-title-lg {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      color: #5a3a2a;
+      margin-bottom: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
     .tag {
       display: inline-block;
       background: #c1440e15;
@@ -1008,6 +1017,107 @@
       100% { transform: translateX(250%); }
     }
 
+    /* ===== WELCOME MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 440px;
+      width: 100%;
+      padding: 2.5rem 2rem 1.8rem;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .modal-overlay.open .modal-card {
+      transform: scale(1) translateY(0);
+    }
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1.2rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fdf6f0, #f5ede5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+    .modal-icon svg { width: 100%; height: 100%; }
+    .modal-quote {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: clamp(1.1rem, 3vw, 1.35rem);
+      color: #5a3a2a;
+      line-height: 1.6;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      border: none;
+      padding: 0;
+    }
+    .modal-attribution {
+      font-size: 0.8rem;
+      color: #b8a89e;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .modal-optout {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: #7d5a4a;
+      cursor: pointer;
+      margin-bottom: 1.2rem;
+      user-select: none;
+    }
+    .modal-optout input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      accent-color: #c1440e;
+      cursor: pointer;
+    }
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #c1440e, #d05a20);
+      color: #fff;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(193,68,14,0.3);
+    }
+    .modal-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(193,68,14,0.4); }
+    .modal-btn:active { transform: scale(0.98); }
+    [data-theme="dark"] .modal-overlay { background: rgba(0,0,0,0.7); }
+    [data-theme="dark"] .modal-card { background: #2a1e18; }
+    [data-theme="dark"] .modal-quote { color: #e8ddd5; }
+    [data-theme="dark"] .modal-icon { background: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .modal-optout { color: #b8a090; }
+
     /* ===== SCROLL REVEAL ===== */
     .reveal {
       opacity: 0;
@@ -1071,6 +1181,30 @@
         font-size: 0.9rem;
       }
     }
+
+    /* ===== THEME FLOATING ===== */
+    .theme-float {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 90;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #c1440e;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(193, 68, 14, 0.3);
+      transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    .theme-float:hover { transform: scale(1.1); }
+    .theme-float:active { transform: scale(0.95); }
+    @media (max-width: 500px) { .theme-float { bottom: 1.2rem; left: 1.2rem; width: 40px; height: 40px; font-size: 1rem; } }
 
     /* ===== MAPA ===== */
     .map-wrapper {
@@ -1163,12 +1297,31 @@
       font-weight: 400;
       color: #7d5a4a;
     }
+    .weather-card .weather-label {
+      font-size: 0.65rem;
+      color: #b8a89e;
+      margin-top: 0.2rem;
+    }
     .weather-loading {
       text-align: center;
       color: #7d5a4a;
       font-size: 0.9rem;
       padding: 1rem;
     }
+
+    .badge { background: rgba(193,68,14,0.12); color: #c1440e; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .reminder {
+      margin-top: 1.2rem;
+      background: #fff3e6;
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border-left: 3px solid #c1440e;
+    }
+    .reminder i { color: #c1440e; font-size: 1.1rem; flex-shrink: 0; }
 
     /* ===== DARK MODE OVERRIDES ===== */
     [data-theme="dark"] .nav-bar { border-bottom-color: rgba(255,255,255,0.06); }
@@ -1182,7 +1335,8 @@
     [data-theme="dark"] .check-card,
     [data-theme="dark"] .doc-chip,
     [data-theme="dark"] .people-card,
-    [data-theme="dark"] .photo-card { background: var(--card-bg); border-color: var(--card-border); }
+    [data-theme="dark"] .photo-card,
+    [data-theme="dark"] .car-card { background: var(--card-bg); border-color: var(--card-border); }
     [data-theme="dark"] .stat-label,
     [data-theme="dark"] .day-subtitle,
     [data-theme="dark"] .section-subtitle { color: var(--muted); }
@@ -1202,6 +1356,7 @@
     [data-theme="dark"] .section-icon { opacity: 0.7; }
     [data-theme="dark"] .route-box .stat-label { color: var(--muted); }
     [data-theme="dark"] .back-top { background: var(--card-bg); color: var(--text); border-color: var(--card-border); }
+    [data-theme="dark"] .theme-float { background: var(--card-bg); color: var(--text); border: 1px solid var(--card-border); }
     [data-theme="dark"] .people-card .people-role { color: var(--muted); }
     [data-theme="dark"] .check-card h3 { color: var(--text); }
     [data-theme="dark"] .check-card h4 { color: var(--text); }
@@ -1213,12 +1368,30 @@
     [data-theme="dark"] .hero-date { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
     [data-theme="dark"] .illo-row svg { color: rgba(255,255,255,0.06); }
     [data-theme="dark"] .reminder { background: #2f221c; border-left-color: #d05a20; }
+    [data-theme="dark"] .reminder i { color: #d05a20; }
     [data-theme="dark"] .reminder span { color: var(--text); }
     [data-theme="dark"] .place-link { color: var(--text); }
     [data-theme="dark"] .place-link .ext-icon { color: var(--muted-light); }
     [data-theme="dark"] .day-card .highlight { background: rgba(193,68,14,0.15); }
     [data-theme="dark"] .day-card .highlight strong { color: #e07040; }
     [data-theme="dark"] .badge { background: rgba(193,68,14,0.2); color: #e07040; }
+    [data-theme="dark"] .section-title-lg { color: var(--text); }
+    [data-theme="dark"] .car-card .driver { color: var(--muted); }
+    [data-theme="dark"] .car-passengers span { background: rgba(255,255,255,0.06); color: var(--text); }
+    [data-theme="dark"] .photo-desc { color: var(--muted); opacity: 1; }
+    [data-theme="dark"] .fun-facts { background: var(--card-bg); border-color: var(--card-border); }
+    [data-theme="dark"] .fun-facts h3 { color: var(--text); }
+    [data-theme="dark"] .fun-fact-item { background: rgba(255,255,255,0.03); color: var(--text); border-color: rgba(255,255,255,0.06); }
+    [data-theme="dark"] .fun-fact-item strong { color: #e07040; }
+    [data-theme="dark"] .map-caption,
+    [data-theme="dark"] .clima-subtitle { color: var(--muted); }
+    [data-theme="dark"] footer { color: var(--muted); }
+    [data-theme="dark"] .weather-card .day-name { color: var(--muted); }
+    [data-theme="dark"] .weather-card .weather-temp { color: var(--text); }
+    [data-theme="dark"] .weather-card .weather-label { color: var(--muted-light); }
+    [data-theme="dark"] .day-item .time { color: var(--text); }
+    [data-theme="dark"] .weather-loading { color: var(--muted); }
+    [data-theme="dark"] .splash { background: var(--bg); }
 
   </style>
 </head>
@@ -1235,6 +1408,28 @@
     <div class="splash-loader"></div>
   </div>
 
+  <!-- ===== WELCOME MODAL ===== -->
+  <div class="modal-overlay" id="welcomeModal">
+    <div class="modal-card">
+      <div class="modal-icon">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 8c-7.7 0-14 6.3-14 14s6.3 14 14 14 14-6.3 14-14S27.7 8 20 8z"/>
+          <path d="M14 20l4 4 8-8" stroke="#c1440e" stroke-width="2.4"/>
+        </svg>
+      </div>
+      <blockquote class="modal-quote">
+        "Los mejores viajes no se miden en kilómetros,<br>
+        sino en los amigos que los recorren con vos."
+      </blockquote>
+      <p class="modal-attribution">— Fiambalá 2026</p>
+      <label class="modal-optout">
+        <input type="checkbox" id="modalDontShow" />
+        <span>No volver a mostrar</span>
+      </label>
+      <button class="modal-btn" id="modalBtn">¡A viajar!</button>
+    </div>
+  </div>
+
   <!-- ===== NAV ===== -->
   <nav class="nav-bar" id="navBar">
     <div class="nav-logo">
@@ -1249,9 +1444,6 @@
       <a href="#checklist">Checklist</a>
       <a href="#fotos">Fotos</a>
       <a href="#docs">Documentación</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Modo oscuro">
-        <i class="fa-regular fa-moon"></i>
-      </button>
     </div>
     <div class="nav-weather" id="navWeather">
       <span class="nav-weather-icon"><i class="fa-regular fa-sun"></i></span>
@@ -1303,9 +1495,7 @@
 
   <!-- ===== ROUTE STATS ===== -->
   <section class="reveal" style="padding-top:2.5rem;padding-bottom:0;">
-    <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:1.8rem;font-weight:700;letter-spacing:-0.01em;">
-      El viaje en números
-    </h3>
+    <h3 class="section-title-lg">El viaje en números</h3>
     <div class="route-box">
       <div class="stat">
         <div class="stat-value">612 km</div>
@@ -1444,17 +1634,17 @@
     <h2>Mapa del viaje</h2>
     <p class="section-subtitle">San Juan → Fiambalá por RN40 · 612 km</p>
     <div class="map-wrapper" id="routeMap"></div>
-    <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);color:#7d5a4a;">
+    <p style="text-align:center;margin-top:0.7rem;font-size:clamp(0.7rem,1.8vw,0.8rem);" class="map-caption">
       <i class="fa-regular fa-compass"></i>&nbsp; Salida: YPF Centenario RN40 · <a href="https://www.openstreetmap.org/directions?from=-31.538,-68.536&to=-27.6,-67.6" target="_blank" rel="noopener" style="color:#c1440e;text-decoration:underline;">Ver ruta en OpenStreetMap</a>
     </p>
   </section>
 
   <!-- ===== CLIMA ===== -->
   <section class="reveal" id="clima" style="padding-top:2.5rem;padding-bottom:0;">
-    <h3 style="text-align:center;font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3.5vw,1.8rem);color:#5a3a2a;margin-bottom:0.5rem;font-weight:700;letter-spacing:-0.01em;">
+    <h3 class="section-title-lg" style="margin-bottom:0.5rem;">
       <i class="fa-regular fa-sun" style="color:#c1440e;"></i>&nbsp; Clima estimado
     </h3>
-    <p style="text-align:center;color:#7d5a4a;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;">Fiambalá · 9 al 12 de julio</p>
+    <p style="text-align:center;font-size:clamp(0.75rem,2vw,0.85rem);margin-bottom:1.5rem;" class="clima-subtitle">Fiambalá · 9 al 12 de julio</p>
     <div class="weather-grid" id="weatherGrid">
       <div class="weather-loading"><i class="fa-solid fa-spinner fa-spin"></i> Cargando clima…</div>
     </div>
@@ -1683,8 +1873,8 @@
     </div>
 
     <!-- reminder -->
-    <div class="reminder" style="margin-top:1.2rem;background:#fff3e6;border-radius:12px;padding:0.9rem 1.2rem;font-size:clamp(0.8rem,2vw,0.9rem);display:flex;align-items:center;gap:0.7rem;border-left:3px solid #c1440e;">
-      <i class="fa-solid fa-circle-exclamation" style="color:#c1440e;font-size:1.1rem;flex-shrink:0;"></i>
+    <div class="reminder">
+      <i class="fa-solid fa-circle-exclamation"></i>
       <span>Llevá <strong>efectivo</strong> suficiente — las termas y varios lugares no toman tarjeta. La entrada a Termas de Fiambalá es <strong>$20.000</strong> por persona (compra presencial).</span>
     </div>
   </section>
@@ -1703,6 +1893,11 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
+  <!-- ===== THEME TOGGLE FLOTANTE ===== -->
+  <button class="theme-float" id="themeToggle" aria-label="Modo oscuro">
+    <i class="fa-regular fa-moon"></i>
+  </button>
+
   <!-- ===== SCRIPTS ===== -->
   <script>
     // ===== SPLASH SCREEN =====
@@ -1713,6 +1908,36 @@
       setTimeout(hideSplash, 1000);
       // Click-to-skip
       splash.addEventListener('click', hideSplash);
+    })();
+
+    // ===== WELCOME MODAL =====
+    (function() {
+      const modal = document.getElementById('welcomeModal');
+      const btn = document.getElementById('modalBtn');
+      const dontShow = document.getElementById('modalDontShow');
+      if (!modal || !btn) return;
+
+      // Check localStorage
+      if (localStorage.getItem('fiambala-modal-done') === 'true') return;
+
+      // Show after splash fades out (splash has transition 0.6s + 1s delay)
+      setTimeout(() => {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }, 1600);
+
+      function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        if (dontShow?.checked) {
+          localStorage.setItem('fiambala-modal-done', 'true');
+        }
+      }
+
+      btn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
     })();
 
     // ===== DARK MODE =====
@@ -1759,17 +1984,16 @@
         95: 'fa-solid fa-cloud-bolt', 96: 'fa-solid fa-cloud-bolt', 99: 'fa-solid fa-cloud-bolt',
       };
 
-      window.navWeatherCallback = function(data) {
-        if (!data || !data.current_weather) return;
-        const w = data.current_weather;
-        tempSpan.textContent = Math.round(w.temperature) + '°';
-        const cls = wmoIcons[w.weathercode] || 'fa-regular fa-sun';
-        iconSpan.className = cls;
-      };
-
-      const s = document.createElement('script');
-      s.src = 'https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&current_weather=true&callback=navWeatherCallback';
-      document.head.appendChild(s);
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&current_weather=true')
+        .then(r => r.json())
+        .then(data => {
+          if (!data || !data.current_weather) return;
+          const w = data.current_weather;
+          tempSpan.textContent = Math.round(w.temperature) + '°';
+          const cls = wmoIcons[w.weathercode] || 'fa-regular fa-sun';
+          iconSpan.className = cls;
+        })
+        .catch(() => {});
     })();
 
     // ===== SCROLL REVEAL =====
@@ -1915,7 +2139,7 @@
             <div class="day-date">${shortDate}</div>
             <div class="weather-icon"><i class="${icon}"></i></div>
             <div class="weather-temp">${Math.round(max)}° <small>min ${Math.round(min)}°</small></div>
-            <div style="font-size:0.65rem;color:#b8a89e;margin-top:0.2rem;">${label}</div>
+            <div class="weather-label">${label}</div>
           </div>
         `;
       }
@@ -1943,18 +2167,22 @@
         ).join('');
       }
 
-      // Try JSONP via script tag (works from file://)
-      window.weatherCallback = renderWeather;
-      const s = document.createElement('script');
-      s.src = 'https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&start_date=2026-07-09&end_date=2026-07-12&callback=weatherCallback';
-      s.onerror = renderFallback;
-      s.onabort = renderFallback;
-      document.head.appendChild(s);
+      // Try API via fetch (Open-Meteo supports CORS, no JSONP needed)
+      fetch('https://api.open-meteo.com/v1/forecast?latitude=-27.6&longitude=-67.6&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&start_date=2026-07-09&end_date=2026-07-12')
+        .then(r => r.json())
+        .then(data => {
+          if (data && data.daily) {
+            renderWeather(data);
+          } else {
+            renderFallback();
+          }
+        })
+        .catch(() => renderFallback());
 
-      // Timeout: if JSONP doesn't respond in 5s, fallback
+      // Fallback if fetch doesn't respond in 8s
       setTimeout(() => {
         if (grid.querySelector('.weather-loading')) renderFallback();
-      }, 5000);
+      }, 8000);
     })();
 
     // ===== MAPA CON RUTA =====
